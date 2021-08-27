@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { connectWallet, disconnectWallet} from '../actions';
+import { Link } from 'react-router-dom';
 
 import '../css/navbar.css'
 
@@ -28,6 +29,12 @@ const NavBar = () =>{
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <Link className="nav-link btn nav-btn" to='/'>Dashboard</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link className="nav-link btn nav-btn" to='/pay'>Pay</Link>
+                            </li>
                             <li class="nav-item">
                                 {(selector.userAddress==="")?
                                 <button className="nav-link btn nav-btn" onClick={onClick}>Connect Wallet</button>:

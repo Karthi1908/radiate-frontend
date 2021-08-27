@@ -1,0 +1,29 @@
+.main-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-content{
+    height: 80vh;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 1px solid #dfe6e9;
+    background-color: white;
+}
+.table-section{
+    padding-top: 15px;
+}
+
+.table-section .row{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.table-section table{
+    margin-top: 5px;
+}
+
+.table-section .table .form-range{
+    /* width: 300px; */
+}

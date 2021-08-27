@@ -14,7 +14,7 @@ export const tezosInstance = () => {
             const tezosToolkit =  new TezosToolkit("https://florencenet.smartpy.io/")
             dispatch({type:"TEZOS_INSTANCE", tezos:{tezosToolkit:tezosToolkit}});
         }
-    } 
+    }
 }
 
 export const contractInstanceAction = () => {

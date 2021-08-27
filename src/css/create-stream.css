@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neuton:wght@300&display=swap');
+
+body{
+    background-color: whitesmoke;
+}
+
+/* .main{
+    margin-top: 20px;
+    background-color: #eaeff0;
+    padding: 60px 100px 100px 100px;
+    box-shadow: rgb(197, 194, 194);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+.create-stream-head{
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.form-control{
+    /* border-radius: 20px; */
+    /* padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.create-stream-illus{
+    width: 100vw;
+    height: 86vh;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.label{
+    font-size: 20px;
+    font-family: 'Neuton', serif;
+}
+
+.btn-create{
+    font-size: 20px;
+    padding: 5px 100px;
+    border-radius: 5px;
+    background-color: #1abc9c;
+    color: whitesmoke;
+    position: absolute;
+    left: 50%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    transform: translate(-50%, -50%);
+} */

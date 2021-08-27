@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { connectWallet, disconnectWallet} from '../actions';
+import { connectWallet, disconnectWallet, createStream} from '../actions';
 import DateTimePicker from 'react-datetime-picker';
 
 import '../css/create-stream.css'
@@ -20,6 +20,9 @@ const CreateStream = () =>{
         e.preventDefault();
         if(token!=="" && amount !== 0 && receiver!=="" && duration!==""){
             // try calling entry point
+            if(selector.userAddress!==""){
+                dispatch(createStream())
+            }
         }
     }
 

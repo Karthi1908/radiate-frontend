@@ -11,7 +11,7 @@ export const tezosInstance = () => {
     return async (dispatch, getState) => {
         const { walletConfig } = getState();
         if(walletConfig.tezos.tezosToolkit === null){
-            const tezosToolkit =  new TezosToolkit("https://florencenet.smartpy.io/")
+            const tezosToolkit =  new TezosToolkit("https://granadanet.smartpy.io/")
             dispatch({type:"TEZOS_INSTANCE", tezos:{tezosToolkit:tezosToolkit}});
         }
     }
@@ -44,7 +44,7 @@ export const connectWallet = () => {
             if(!walletConfig.beacon.beaconConnection){
                 wallet = new BeaconWallet({
                     name: "Template",
-                    preferredNetwork: NetworkType.FLORENCENET,
+                    preferredNetwork: NetworkType.GRANADANET,
                     disableDefaultEvents: true, // Disable all events / UI. This also disables the pairing alert.
                     eventHandlers: {
                     // To keep the pairing alert, we have to add the following default event handlers back
@@ -63,8 +63,8 @@ export const connectWallet = () => {
             if(!activeAccount){
                 await wallet.requestPermissions({
                 network: {
-                    type: NetworkType.FLORENCENET,
-                    rpcUrl: "https://florencenet.smartpy.io/"
+                    type: NetworkType.GRANADANET,
+                    rpcUrl: "https://granadanet.smartpy.io/"
                 }
                 });
             }
@@ -124,55 +124,74 @@ export const disconnectWallet = () => {
       };
 }
 
-export const fetchContractData = () => {
-    return async (dispatch, getState) => {
-        try {
-            await dispatch(tezosInstance());
-            await dispatch(contractInstanceAction());
-            const { contractInstance } = getState();
-            var contract = contractInstance.contract;
+// export const fetchContractData = () => {
+//     return async (dispatch, getState) => {
+//         try {
+//             await dispatch(tezosInstance());
+//             await dispatch(contractInstanceAction());
+//             const { contractInstance } = getState();
+//             var contract = contractInstance.contract;
 
-            const storage = await contract.storage();
-            dispatch({type:"SET_VALUE", payload: storage.toNumber()});
-        }catch(e){
-            //dispatch
-            console.log(e);
-        }
-    }
-}
+//             const storage = await contract.storage();
+//             dispatch({type:"SET_VALUE", payload: storage.toNumber()});
+//         }catch(e){
+//             //dispatch
+//             console.log(e);
+//         }
+//     }
+// }
 
-export const incrementData = () => {
+// export const incrementData = () => {
+//     return async (dispatch, getState) => {
+//         try{
+//             //update balance if necessary
+//             await dispatch(contractInstanceAction());
+//             const { contractInstance } = getState();
+//             var contract = contractInstance.contract;
+
+//             const op = await contract.methods.increment(1).send();
+//             await op.confirmation();
+//             const newStorage = await contract.storage();
+//             dispatch({type:"SET_VALUE", payload: newStorage.toNumber()});
+//         }catch(e){
+//             console.log(e);
+//         }
+//     }
+// }
+
+
+// export const decrementData = () => {
+//     return async (dispatch, getState) => {
+//         try{
+//             await dispatch(contractInstanceAction());
+//             const { contractInstance } = getState();
+//             var contract = contractInstance.contract;
+
+//             const op = await contract.methods.decrement(1).send();
+//             await op.confirmation();
+//             const newStorage = await contract.storage();
+//             dispatch({type:"SET_VALUE", payload: newStorage.toNumber()});
+//         }catch(e){
+//             console.log(e);
+//         }
+//     }
+// }
+
+export const createStream = (formData) => {
     return async (dispatch, getState) => {
         try{
-            //update balance if necessary
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
-            var contract = contractInstance.contract;
-
-            const op = await contract.methods.increment(1).send();
+            const op = await contractInstance.contract.methods.createStream(
+                    formData.amount/formData.duration,
+                    formData.receiver,
+                    formData.startTime,
+                    formData.stopTime,
+                    formData.token,
+                    ) 
             await op.confirmation();
-            const newStorage = await contract.storage();
-            dispatch({type:"SET_VALUE", payload: newStorage.toNumber()});
         }catch(e){
-            console.log(e);
-        }
-    }
-}
 
-
-export const decrementData = () => {
-    return async (dispatch, getState) => {
-        try{
-            await dispatch(contractInstanceAction());
-            const { contractInstance } = getState();
-            var contract = contractInstance.contract;
-
-            const op = await contract.methods.decrement(1).send();
-            await op.confirmation();
-            const newStorage = await contract.storage();
-            dispatch({type:"SET_VALUE", payload: newStorage.toNumber()});
-        }catch(e){
-            console.log(e);
         }
     }
 }

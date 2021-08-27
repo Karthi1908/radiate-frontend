@@ -44,13 +44,4 @@ const contractInstanceReducer = (state={hasData:false, contract:null}, action) =
     }
 }
 
-const contractStorageReducer = (state=0, action) => {
-    switch(action.type){
-        case "SET_VALUE":
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export default combineReducers({walletConfig: connectWalletReducer, contractStorage: contractStorageReducer, contractInstance: contractInstanceReducer});
+export default combineReducers({walletConfig: connectWalletReducer, contractInstance: contractInstanceReducer});

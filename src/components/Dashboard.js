@@ -1,7 +1,9 @@
 import React from 'react';
 import '../css/dashboard.css';
 
-const Dashboard = () => {
+ 
+
+export const Dashboard = (() => {
     return (
         <div className="container container-content main-section">
             <div className="col" align="center">
@@ -10,6 +12,4 @@ const Dashboard = () => {
             </div>
         </div>
     );
-}
-
-export default Dashboard;
+});

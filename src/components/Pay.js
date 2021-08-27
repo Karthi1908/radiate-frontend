@@ -1,8 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createClient, everything } from 'radiate-finance-sdk';
+
 import '../css/dashboard.css';
 
 const Pay = () => {
-    if(true){
+
+    const selector = useSelector(state => {return state.walletConfig.user});
+    const dispatch = useDispatch();
+
+    const [senderStreams, setSenderStream] = useState([]);
+
+    useEffect(async () => {
+        const create = createClient({
+            url: 'ws://hasura-radiateapi.herokuapp.com/v1/graphql'
+        });
+        
+        if(selector.userAddress!==""){
+            await create.chain.subscription.radiateStream({
+            
+                where:{'sender': {_eq: selector.userAddress}}
+    
+            }).get({...everything}).subscribe(e => {
+                setSenderStream(e);
+                console.log(e)
+            });
+
+        }
+    }, [selector.userAddress]);
+
+    if(senderStreams.length > 0){
         return (
             <div className="container container-content table-section">
                 <div className="row justify-content-between">
@@ -13,35 +40,24 @@ const Pay = () => {
                     <table className="table table-light table-hover">
                         <thead>
                             <tr>
-                            <th scope="col">STATUS</th>
-                            <th scope="col">TO</th>
-                            <th scope="col">VALUE</th>
-                            <th scope="col">PROGRESS</th>
-                            <th scope="col">START TIME</th>
+                                <th scope="col">STATUS</th>
+                                <th scope="col">TO</th>
+                                <th scope="col">VALUE</th>
+                                <th scope="col">START TIME</th>
+                                <th scope="col">STOP TIME</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">Streaming</th>
-                                <td>tz1000000</td>
-                                <td>101.23 XTZ</td>
-                                <td><input type="range" className="form-range" id="customRange1"/></td>
-                                <td>Fri Aug 27 2021 01:19:33 </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Streaming</th>
-                                <td>tz1000000</td>
-                                <td>101.23 XTZ</td>
-                                <td><input type="range" className="form-range" id="customRange1"/></td>
-                                <td>Fri Aug 27 2021 01:19:33 </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Streaming</th>
-                                <td>tz1000000</td>
-                                <td>101.23 XTZ</td>
-                                <td><input type="range" className="form-range" id="customRange1"/></td>
-                                <td>Fri Aug 27 2021 01:19:33 </td>
-                            </tr>
+                            {senderStreams.map((stream) => {
+                                console.log(stream);
+                                return <tr>
+                                    <th scope="row">Streaming</th>
+                                    <td>{stream.receiver}</td>
+                                    <td>{stream.deposit}</td>
+                                    <td>{stream.startTime}</td>
+                                    <td>{stream.stopTime}</td>
+                                </tr>
+                            })}
                         </tbody>
                     </table>
                 </div>
@@ -58,5 +74,7 @@ const Pay = () => {
         );
     }
 }
+
+// sender streams
 
 export default Pay;

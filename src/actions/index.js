@@ -183,15 +183,43 @@ export const createStream = (formData) => {
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
             const op = await contractInstance.contract.methods.createStream(
-                    formData.amount/formData.duration,
-                    formData.receiver,
-                    formData.startTime,
-                    formData.stopTime,
-                    formData.token,
-                    ) 
+                formData.amount/formData.duration,
+                formData.receiver,
+                formData.startTime,
+                formData.stopTime,
+                formData.token,
+            ) 
             await op.confirmation();
         }catch(e){
 
+        }
+    }
+}
+
+export const withdraw = (withdrawParams) => {
+    return async (dispatch, getState) => {
+        try{
+            await dispatch(contractInstanceAction());
+            const { contractInstance } = getState();
+            const op = await contractInstance.contract.methods.withdraw(
+                withdrawParams.amount,
+                withdrawParams.streamId
+            )
+            await op.confirmation();
+        }catch(e){
+        
+        }
+    }
+}
+
+export const cancelStream = () => {
+    return async (dispatch, getState) => {
+        try{
+            await dispatch(contractInstanceAction());
+            const { contractInstance } = getState();
+
+        }catch(e){
+        
         }
     }
 }

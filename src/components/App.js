@@ -27,17 +27,20 @@ const App = () => {
     },[dispatch]);
 
     return (
-        <div>
+        <>
             <NavBar/>
             <Switch>
                 <Route path="/pay">
                     <Pay/>
                 </Route>
+                <Route path='/createstream'>
+                    <CreateStream/>
+                </Route>
                 <Route path='/'>
                     <Dashboard/>
                 </Route>
             </Switch>
-        </div>
+        </>
     );
 }
 

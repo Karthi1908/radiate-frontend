@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 
+body{
+    background-color: #f8faff;
+}
+
 .navbar{
     font-family: 'Poppins', sans-serif;
     border-bottom: 1px solid #dfe6e9;

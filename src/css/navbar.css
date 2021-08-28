@@ -15,6 +15,10 @@ body{
     font-size: 30px;
 }
 
+.mar-left-nav{
+    margin-left: auto;
+}
+
 .nav-btn{
     border-radius: 20px;
     border: 1px solid #dfe6e9;

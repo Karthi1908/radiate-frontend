@@ -21,7 +21,17 @@ body{
     background-color: transparent;
     font-size: 15px;
     cursor: pointer;
+    padding: 5px 10px;
 }
+
+.con-btn{
+    margin-left: 10px;
+    padding: 5px 20px !important;
+}
+
+/* .btns-div{
+    text-align: center;
+} */
 
 .btn:active .btn:focus .btn:hover{
     text-decoration: none;

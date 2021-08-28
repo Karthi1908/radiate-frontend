@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import '../css/dashboard.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { connectWallet } from '../actions';
-
 import { createClient, everything } from 'radiate-finance-sdk';
- 
+import '../css/dashboard.css';
 
 export const Dashboard = (() => {
     const selector = useSelector(state => {return state.walletConfig.user});
@@ -38,12 +36,12 @@ export const Dashboard = (() => {
         <div className="container">
             {(selector.userAddress==="")?
                 <div className="col main-section container-content" align="center">
-                    <div className="h5 text">Sign in with your tezos account to view incoming streams</div>
-                    <button type="button" onClick={(e)=>{dispatch(connectWallet())}} className="btn btn-primary">Sign In</button>
+                    <div className="sign-in-text">Sign in with your tezos account to view incoming streams</div>
+                    <button type="button" onClick={(e)=>{dispatch(connectWallet())}} className="btn sign-in-btn">Connect Wallet</button>
                 </div>:
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-light table-hover">
+                        <table className="table table-light table-hover table-responsive">
                             <thead>
                                 <tr>
                                     <th scope="col">SENDER</th>

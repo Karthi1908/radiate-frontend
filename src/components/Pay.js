@@ -37,7 +37,7 @@ const Pay = () => {
                     <button type="button" onClick={()=>{}} className="btn btn-primary">Create Stream</button>
                 </div>
                 <div className="col" align="center">
-                    <table className="table table-light table-hover">
+                    <table className="table table-light table-hover table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">STATUS</th>

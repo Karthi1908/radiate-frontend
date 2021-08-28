@@ -179,19 +179,32 @@ export const disconnectWallet = () => {
 
 export const createStream = (formData) => {
     return async (dispatch, getState) => {
+        console.log('yes');
         try{
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
-            const op = await contractInstance.contract.methods.createStream(
-                formData.amount/formData.duration,
-                formData.receiver,
-                formData.startTime,
-                formData.stopTime,
-                formData.token,
-            ) 
+            console.log("contract instance")
+            console.log(contractInstance.contract)
+            const op = contractInstance.contract.methods.createStream(
+                // Math.floor(formData.amount/formData.duration),
+                // formData.receiver,
+                // formData.startTime,
+                // formData.stopTime,
+                100,
+                "tz1UtLdCjgJbWbAN94QwVc42dmBb5fGpp6NQ",
+                + new Date(),
+                + new Date() + 1000,
+                "tez",
+                [["unit"]]
+            )
+            console.log(op)
+            console.log(op.toTransferParams())
+            await op.send({mutez: true, amount: 1440000})
+            // .send({mutez: true, amount: Math.floor(formData.amount/formData.duration)*(formData.stopTime - formData.startTime)})
             await op.confirmation();
+            
         }catch(e){
-
+            console.log(e);
         }
     }
 }
@@ -212,12 +225,15 @@ export const withdraw = (withdrawParams) => {
     }
 }
 
-export const cancelStream = () => {
+export const cancelStream = (cancelParams) => {
     return async (dispatch, getState) => {
         try{
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
-
+            const op = await contractInstance.contract.methods.cancelStream(
+                cancelParams.streamId
+            )
+            await op.confirmation();
         }catch(e){
         
         }

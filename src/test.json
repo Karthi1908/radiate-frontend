@@ -1,0 +1,98 @@
+{
+    "entrypoints": {
+        "withdraw": {
+            "prim": "pair",
+            "args": [
+                {
+                    "prim": "nat",
+                    "annots": [
+                        "%amount"
+                    ]
+                },
+                {
+                    "prim": "nat",
+                    "annots": [
+                        "%streamId"
+                    ]
+                }
+            ]
+        },
+        "createStream": {
+            "prim": "pair",
+            "args": [
+                {
+                    "prim": "nat",
+                    "annots": [
+                        "%ratePerSecond"
+                    ]
+                },
+                {
+                    "prim": "address",
+                    "annots": [
+                        "%receiver"
+                    ]
+                },
+                {
+                    "prim": "timestamp",
+                    "annots": [
+                        "%startTime"
+                    ]
+                },
+                {
+                    "prim": "timestamp",
+                    "annots": [
+                        "%stopTime"
+                    ]
+                },
+                {
+                    "prim": "or",
+                    "args": [
+                        {
+                            "prim": "address",
+                            "annots": [
+                                "%FA12"
+                            ]
+                        },
+                        {
+                            "prim": "or",
+                            "args": [
+                                {
+                                    "prim": "pair",
+                                    "args": [
+                                        {
+                                            "prim": "address",
+                                            "annots": [
+                                                "%tokenAddress"
+                                            ]
+                                        },
+                                        {
+                                            "prim": "nat",
+                                            "annots": [
+                                                "%tokenId"
+                                            ]
+                                        }
+                                    ],
+                                    "annots": [
+                                        "%FA2"
+                                    ]
+                                },
+                                {
+                                    "prim": "unit",
+                                    "annots": [
+                                        "%tez"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "annots": [
+                        "%token"
+                    ]
+                }
+            ]
+        },
+        "cancelStream": {
+            "prim": "nat"
+        }
+    }
+}

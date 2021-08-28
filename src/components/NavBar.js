@@ -27,18 +27,18 @@ const NavBar = () =>{
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav ml-auto">
+                    <div className="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                        <ul className="navbar-nav mar-left-nav">
                             <li className="nav-item">
-                                <Link className="nav-link btn nav-btn" to='/'>Dashboard</Link>
+                                <Link className="nav-link btn nav-btn con-btn" to='/'>Dashboard</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link btn nav-btn" to='/pay'>Pay</Link>
+                                <Link className="nav-link btn nav-btn con-btn" to='/pay'>Pay</Link>
                             </li>
                             <li className="nav-item">
                                 {(selector.userAddress==="")?
-                                <button className="nav-link btn nav-btn" onClick={onClick}>Connect Wallet</button>:
-                                <button className="nav-link btn nav-btn" onClick={onClick}>Disconnect Wallet</button>}
+                                <div className="btns-div"><button className="nav-link btn nav-btn con-btn" onClick={onClick}>Connect Wallet</button></div>:
+                                <div className="btns-div"><button className="nav-link btn nav-btn con-btn" onClick={onClick}>Disconnect Wallet</button></div>}
                             </li>
                         </ul>
                     </div>

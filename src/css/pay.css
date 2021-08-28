@@ -1,0 +1,85 @@
+.main-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dash-table-header{
+    /* color: #7b7d80; */
+    color: #3867d6;
+    font-weight: 500;
+}
+
+.dash-head{
+    margin-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.dash-body{
+    color: #333333;
+    font-weight: 500;
+}
+
+.table-section{
+    padding: 20px;
+    background-color: white;
+    margin-top: 30px;
+}
+
+.receiver{
+    font-family: 'Cutive Mono', monospace;
+    color: black;
+    font-weight: 500;
+}
+
+.main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.create-stream-btn{
+    font-size: 20px;
+    font-weight: 400;
+    background-color: #3867d6;
+    color: whitesmoke;
+    border-radius: 20px;
+    padding: 5px 20px;
+}
+
+.create-stream-btn:hover, .create-stream-btn:active, .create-stream-btn:focus{
+    background-color: #3867d6;
+    color: whitesmoke;
+}
+
+.sign-in-text{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.pay-main{
+    background-color: white;
+}
+
+.pay-flex{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+.pay-dash-head{
+    margin-right: auto;
+    color: #333333;
+}
+
+.top-create-btn{
+    font-size: 20px;
+    font-weight: 400;
+    background-color: #3867d6;
+    color: whitesmoke;
+    border-radius: 5px;
+    padding: 5px 20px;
+}

@@ -33,7 +33,7 @@ export const Dashboard = (() => {
 
     return (
         
-        <div className="container">
+        <div className="container container-content">
             {(selector.userAddress==="")?
                 <div className="col main-section container-content" align="center">
                     <div className="sign-in-text">Sign in with your tezos account to view incoming streams</div>

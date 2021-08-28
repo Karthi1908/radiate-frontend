@@ -35,9 +35,9 @@ export const Dashboard = (() => {
 
     return (
         
-        <div className="container">
+        <div className="container container-content">
             {(selector.userAddress==="")?
-                <div className="col main-section container-content" align="center">
+                <div className="col main-section" align="center">
                     <div className="h5 text">Sign in with your tezos account to view incoming streams</div>
                     <button type="button" onClick={(e)=>{dispatch(connectWallet())}} className="btn btn-primary">Sign In</button>
                 </div>:

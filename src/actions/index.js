@@ -190,17 +190,18 @@ export const createStream = (formData) => {
                 // formData.receiver,
                 // formData.startTime,
                 // formData.stopTime,
-                100,
-                "tz1UtLdCjgJbWbAN94QwVc42dmBb5fGpp6NQ",
-                + new Date(),
-                + new Date() + 1000,
+                Math.floor(formData.amount/formData.duration),
+                formData.receiver,
+                (Math.floor(formData.startTime)).toString(),
+                (Math.floor((formData.stopTime))).toString(),
                 "tez",
                 [["unit"]]
-            )
+            ).send({mutez: true, amount:  Math.floor(formData.amount/formData.duration)*((Math.floor((formData.stopTime))) - (Math.floor(formData.startTime)))})
+            //
             console.log(op)
             console.log(op.toTransferParams())
-            await op.send({mutez: true, amount: 1440000})
-            // .send({mutez: true, amount: Math.floor(formData.amount/formData.duration)*(formData.stopTime - formData.startTime)})
+            // await op.send({mutez: true, amount: 10000000})
+            
             await op.confirmation();
             
         }catch(e){

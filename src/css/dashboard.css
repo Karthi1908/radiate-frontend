@@ -59,18 +59,19 @@ table{
 }
 
 .dash-table-header{
-    /* color: #7b7d80; */
     color: #3867d6;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 15px;
 }
 .dash-head{
     margin-bottom: 20px;
     font-family: 'Ubuntu', sans-serif;
 }
 
-.dash-body{
+.dash-table-body{
     color: #333333;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 15px;
 }
 
 .sender{

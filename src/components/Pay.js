@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createClient, everything } from 'radiate-finance-sdk';
+import { Link } from 'react-router-dom';
 
 import '../css/pay.css';
 
@@ -36,7 +37,7 @@ const Pay = () => {
                     <div className="row">
                         <div className="pay-flex">
                             <h3 className="pay-dash-head">Dashboard</h3>
-                            <button type="button" onClick={()=>{}} className="btn top-create-btn">Create Stream</button>
+                            <Link to="/createstream" className="btn top-create-btn">Create Stream</Link>
                         </div>  
                     </div>
                     <div className="col" align="center">
@@ -77,7 +78,7 @@ const Pay = () => {
             <div className="container container-content main-section">
                 <div className="col main" align="center">
                     <div className="sign-in-text">Create stream to get started</div>
-                    <button type="button" onClick={()=>{}} className="btn create-stream-btn">Create Stream</button>
+                    <Link to="/createstream" className="btn create-stream-btn">Create Stream</Link>
                 </div>
             </div>
         );

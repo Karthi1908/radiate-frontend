@@ -186,10 +186,6 @@ export const createStream = (formData) => {
             console.log("contract instance")
             console.log(contractInstance.contract)
             const op = contractInstance.contract.methods.createStream(
-                // Math.floor(formData.amount/formData.duration),
-                // formData.receiver,
-                // formData.startTime,
-                // formData.stopTime,
                 Math.floor(formData.amount/formData.duration),
                 formData.receiver,
                 (Math.floor(formData.startTime)).toString(),
@@ -200,7 +196,6 @@ export const createStream = (formData) => {
             //
             console.log(op)
             console.log(op.toTransferParams())
-            // await op.send({mutez: true, amount: 10000000})
             
             await op.confirmation();
             

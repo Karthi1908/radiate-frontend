@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { connectWallet, disconnectWallet, createStream} from '../actions';
+import { connectWallet, disconnectWallet, createStream, createStreamFA2, createStreamFA12} from '../actions';
 import DateTimePicker from 'react-datetime-picker';
 import '../css/create-stream.css'
 
@@ -15,22 +15,45 @@ const CreateStream = () => {
     const [amount, setAmount] = useState();
     const [receiver, setReceiver] = useState("");
     const [duration, setDuration] = useState("");
+    const [contractAddress, setContractAddress] = useState("");
+    const [tokenID, setTokenID] = useState("");
 
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log('step2');
-        dispatch(createStream({
-            amount : amount*1000000,
-            receiver: receiver,
-            startTime: (startTime.getTime())/1000,
-            token: "Tez",
-            stopTime: (endTime.getTime())/1000,
-            duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
-        }))
-        {console.log("step3")}
+        // console.log('step2');
+        if(token === "Tez"){
+            dispatch(createStream({
+                amount : amount*1000000,
+                receiver: receiver,
+                startTime: (startTime.getTime())/1000,
+                token: "Tez",
+                stopTime: (endTime.getTime())/1000,
+                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
+            }))
+        }else if(token === "FA2"){
+            dispatch(createStreamFA2({
+                amount : amount,
+                receiver: receiver,
+                startTime: (startTime.getTime())/1000,
+                stopTime: (endTime.getTime())/1000,
+                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
+                contractAddress: contractAddress,
+                tokenID: tokenID
+            }))
+        }else {
+            dispatch(createStreamFA12({
+                amount : amount,
+                receiver: receiver,
+                startTime: (startTime.getTime())/1000,
+                stopTime: (endTime.getTime())/1000,
+                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
+                contractAddress: contractAddress
+            }))
+        }
+        // {console.log("step3")}
     }
 
     // Todo: date picker issue
@@ -51,8 +74,20 @@ const CreateStream = () => {
                                     <option value="FA2">FA2</option>
                                 </select>
                             </div>
+                            {(token==="FA12" || token==="FA2")?(
+                                <div className="form-group">
+                                    <label className="label">Contract Address</label>
+                                    <input type="text" className="form-control" id="amount" value={contractAddress} onChange={(e)=>{setContractAddress(e.target.value)}}   placeholder="Enter token Address"/>
+                                </div>
+                            ):null}
+                            {(token==="FA2")?(
+                                <div className="form-group">
+                                    <label className="label">Token ID</label>
+                                    <input type="text" className="form-control" id="amount" value={tokenID} onChange={(e)=>{setTokenID(e.target.value)}}   placeholder="Enter token ID"/>
+                                </div>
+                            ):null}
                             <div className="form-group">
-                                <label className="label">Amount</label>
+                                <label className="label">{`Amount ${token==="Tez"?"(in Tez)":""}`}</label>
                                 <input type="text" className="form-control" id="amount" value={amount} onChange={(e)=>{setAmount(e.target.value)}}   placeholder="How much do you want to stream?"/>
                             </div>
                             <div className="form-group">

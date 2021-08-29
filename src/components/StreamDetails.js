@@ -3,8 +3,12 @@ import { useParams } from 'react-router';
 import { createClient, everything } from 'radiate-finance-sdk';
 import { withdraw, cancelStream, connectWallet } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 import Tezos from '../assets/tezos.png';
 import '../css/stream-details.css';
+
 
 const StreamDetails = () => {
     let { streamID } = useParams();
@@ -14,6 +18,7 @@ const StreamDetails = () => {
     const refModel = useRef();
     const selector = useSelector(state => state.walletConfig.user);
     const [withdrawAmount, setWithdrawAmount] = useState(0);
+    const [percentage, setPercentage] = useState(0);
 
 
     useEffect(() => {
@@ -27,19 +32,23 @@ const StreamDetails = () => {
             where: { 'streamId': { _eq: streamID } }
 
         }).get({ history: { ...everything }, ...everything }).subscribe(e => {
-            setStream(e[0]);
-            if (Math.floor(new Date().getTime() > Date.parse(e[0].stopTime))) {
-                let amount_now = parseFloat((((e[0].remainingBalance) / 1000000))).toFixed(6);
-                console.log("Stream ended");
-                setFlow(`${amount_now} Tez`);
-            }
-            setInterval(() => {
-                let timeNow = (new Date()).getTime() / 1000;
-                let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / 1000000)).toFixed(6);
-                if (parseFloat(amount_now) > 0 && e[0].isActive && timeNow < Date.parse(e[0].stopTime)) {
-                    setFlow(`${amount_now} Tez`);
+            if(e.length>0){
+                setStream(e[0]);
+                if (new Date().getTime() > Date.parse(e[0].stopTime) || !e[0].isActive) {
+                    let amount_now = parseFloat((((e[0].remainingBalance) / 1000000))).toFixed(6);
+                    console.log("Stream ended");
+                    setFlow(`${amount_now} tez`);
                 }
-            }, 20);
+                setInterval(() => {
+                    let timeNow = (new Date()).getTime() / 1000;
+                    let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / 1000000)).toFixed(6);
+                    if (parseFloat(amount_now) > 0 && e[0].isActive && timeNow*1000 < Date.parse(e[0].stopTime)) {
+                        setFlow(`${amount_now} tez`);
+                    }
+                    const total = e[0].remainingBalance/1000000;
+                    setPercentage((amount_now/total)*100);
+                }, 500);
+            }
             // console.log(e[0]);
         }))();
     }, []);
@@ -86,11 +95,32 @@ const StreamDetails = () => {
                         <div className="col-10">
                             <div className="card main-card">
                                 <div className="card-body ">
-                                    <h1 className="card-title title">{flow}</h1>
+                                    <div className="row justify-content-center">
+                                        <div className="circle-progress-bar" style={{width:250, height:250}}>
+                                            <CircularProgressbar
+                                                value={percentage}
+                                                text={`${flow}`}
+                                                styles={buildStyles({
+                                                    rotation: 0.25,
+                                                    strokeLinecap: 'round',
+                                                    textSize: '12px',
+                                                    pathTransitionDuration: 1,
+                                                    pathColor: `rgba(61, 178, 255)`,
+                                                    textColor: '#000000',
+                                                    trailColor: '#d6d6d6',
+                                                    backgroundColor: '#3e98c7',
+                                                })}
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* <h1 className="card-title title"> {flow}</h1> */}
                                     <p className="card-text text-center card-status">{(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ? "Streaming" : "Ended"}</p>
                                 </div>
                             </div>
                             <div className="detail-time-flex">
+                                {/* <div className="Streamed">
+                                    <span className="span-time">Streamed: </span>{(percentage)}
+                                </div> */}
                                 <div className="detail-start-time">
                                     <span className="span-time">Started on: </span>{(new Date(Date.parse(stream.startTime)).toDateString()) + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}
                                 </div>
@@ -116,8 +146,8 @@ const StreamDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col" >
-                                <div className="card btn" onClick={() => { dispatch(cancelStream({ streamId: stream.streamId })); }}>
+                            <div className="col">
+                                <div className="card btn" onClick={() => {dispatch(cancelStream({ streamId: stream.streamId })); }}>
                                     <div className="card-body">
                                         <h5 className="card-title">Cancel Stream</h5>
                                         <p className="card-text"></p>

@@ -60,11 +60,11 @@ export const Dashboard = (() => {
                                 <tbody className="dash-body">
                                         {streams.map((stream, i) => {
                                             return <tr>
-                                                <td scope="row">{stream.streamId}</td>
-                                                <td className="sender">{stream.sender}</td>
-                                                <td>{stream.remainingBalance}</td>
-                                                <td>{stream.startTime}</td>
-                                                <td>{stream.stopTime}</td>
+                                                <td scope="row" className="dash-table-body">{stream.streamId}</td>
+                                                <td className="sender dash-table-body">{stream.sender}</td>
+                                                <td className="dash-table-body">{stream.remainingBalance}</td>
+                                                <td className="dash-table-body">{stream.startTime}</td>
+                                                <td className="dash-table-body">{stream.stopTime}</td>
                                             </tr>
                                         })}
                                 </tbody>

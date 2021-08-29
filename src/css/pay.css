@@ -6,9 +6,8 @@
 }
 
 .dash-table-header{
-    /* color: #7b7d80; */
     color: #3867d6;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .dash-head{
@@ -18,7 +17,8 @@
 
 .dash-body{
     color: #333333;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 15px;
 }
 
 .table-section{
@@ -82,4 +82,9 @@
     color: whitesmoke;
     border-radius: 5px;
     padding: 5px 20px;
+}
+
+.top-create-btn:hover, .top-create-btn:active, .top-create-btn:focus{
+    background-color: #3867d6;
+    color: whitesmoke;
 }

@@ -13,7 +13,7 @@ const StreamDetails = () => {
 
     useEffect(() => {
         const create = createClient({
-            url: 'ws://hasura-radiateapi.herokuapp.com/v1/graphql'
+            url: 'wss://hasura-radiateapi.herokuapp.com/v1/graphql'
         });
         (async () => await create.chain.subscription.radiateStream({
         

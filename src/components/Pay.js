@@ -57,7 +57,7 @@ const Pay = () => {
                                         console.log(stream);
                                         return <tr>
                                             {(stream.isActive)?
-                                                <td scope="row">Streaming</td>:
+                                                <Link to={"/stream/" + stream.streamId}><td scope="row">Streaming</td></Link>:
                                                 <td scope="row">Cancelled</td>
                                             }
                                             <td className="receiver">{stream.receiver}</td>

@@ -1,54 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Neuton:wght@300&display=swap');
 
 body{
     background-color: whitesmoke;
 }
 
-/* .main{
-    margin-top: 20px;
-    background-color: #eaeff0;
-    padding: 60px 100px 100px 100px;
-    box-shadow: rgb(197, 194, 194);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
+.create-stream-icon{
+    width: 30px;
+    height: 30px;
+    margin-left: 7px;
+}
+
+.container-create{
+    background-color: white;
+    padding: 40px;
+    margin-top: 70px;
 }
 
 .create-stream-head{
-    margin-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
     font-weight: 600;
+    margin-bottom: 30px;
+    color: #4e4d4d;
 }
 
-.form-control{
-    /* border-radius: 20px; */
-    /* padding-top: 10px;
-    padding-bottom: 10px;
+.form-group{
+    margin-bottom: 20px;
 }
 
-.create-stream-illus{
-    width: 100vw;
-    height: 86vh;
-    object-fit: cover;
-    opacity: 0.6;
+.react-datetime-picker__wrapper{
+    border: none;
 }
 
 .label{
-    font-size: 20px;
-    font-family: 'Neuton', serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333333;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn-create{
     font-size: 20px;
-    padding: 5px 100px;
-    border-radius: 5px;
-    background-color: #1abc9c;
-    color: whitesmoke;
-    position: absolute;
-    left: 50%;
-    margin-top: 30px;
-    margin-bottom: 50px;
-    transform: translate(-50%, -50%);
-} */
+    font-family: 'Poppins', sans-serif;
+    background-color: #3867d6;
+    color: white;
+}

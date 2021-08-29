@@ -25,7 +25,7 @@ const StreamDetails = () => {
             setInterval(()=>{
                 let timeNow= (new Date()).getTime()/1000;
                 let amount_now=parseFloat(((((timeNow-(Date.parse(e[0].startTime))/1000)*e[0].ratePerSecond)-(e[0].deposit-e[0].remainingBalance))/1000000)).toFixed(6);   
-                setFlow(`${amount_now} Tez`);},1000);
+                setFlow(`${amount_now} Tez`);},20);
             // console.log(e[0]);
         }))();
     }, []);

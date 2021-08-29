@@ -21,29 +21,18 @@ const CreateStream = () =>{
     const handleOnSubmit = (e) => {
         e.preventDefault();
         console.log('step2');
-        // if(token!=="" && amount !== 0 && receiver!==""){
-            // try calling entry point
-            // if(selector.userAddress!==""){
-                dispatch(createStream({
-                    amount : amount*1000000,
-                    receiver: receiver,
-                    startTime: (startTime.getTime())/1000,
-                    token: "Tez",
-                    stopTime: (endTime.getTime())/1000,
-                    duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
-                }))
-                {console.log("step3")}
-                // createStream({
-                //     amount : amount,
-                //     receiver: receiver,
-                //     startTime: (startTime.getTime())/1000,
-                //     token: "Tez",
-                //     stopTime: (endTime.getTime())/1000,
-                //     duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
-                // })
-            // }
-        // }
+        dispatch(createStream({
+            amount : amount*1000000,
+            receiver: receiver,
+            startTime: (startTime.getTime())/1000,
+            token: "Tez",
+            stopTime: (endTime.getTime())/1000,
+            duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
+        }))
+        {console.log("step3")}
     }
+
+    // Todo: date picker issue
 
     return(
         <>

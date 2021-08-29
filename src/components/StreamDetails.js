@@ -77,8 +77,8 @@ const StreamDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col"  onClick={()=>dispatch(cancelStream(stream.streamId))}>
-                                <div class="card button">
+                            <div class="col" >
+                                <div class="card btn" onClick={()=>{dispatch(cancelStream({streamId: stream.streamId}));}}>
                                     <div class="card-body">
                                         <h5 class="card-title">Cancel Stream</h5>
                                         <p class="card-text"></p>

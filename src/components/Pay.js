@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Tezos from '../assets/tezos.png'
 
 import '../css/pay.css';
 
@@ -21,12 +22,12 @@ const Pay = ({ senderStreams }) => {
                     </div>
                     <div className="col" align="center">
                         <div className="table-responsive">
-                            <table className="table table-light table-hover  table-borderless">
+                            <table className="table table-light table-borderless">
                                 <thead>
                                     <tr className="dash-head">
                                         <th scope="col" className="dash-table-header">STATUS</th>
                                         <th scope="col" className="dash-table-header">TO</th>
-                                        <th scope="col" className="dash-table-header">VALUE</th>
+                                        <th scope="col" className="dash-table-header">DEPOSIT</th>
                                         <th scope="col" className="dash-table-header">START TIME</th>
                                         <th scope="col" className="dash-table-header">STOP TIME</th>
                                     </tr>
@@ -34,13 +35,13 @@ const Pay = ({ senderStreams }) => {
                                 <tbody className="dash-body">
                                     {senderStreams.map((stream) => {
                                         console.log(stream);
-                                        return <tr>
+                                        return <tr className="dash-row">
                                             {(stream.isActive)?
-                                                <td scope="row">Streaming</td>:
-                                                <td scope="row">Cancelled</td>
+                                                <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td>:
+                                                <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
                                             }
-                                            <td className="receiver">{stream.receiver}</td>
-                                            <td>{stream.deposit}</td>
+                                            <td className="receiver"><a target="_blank" href={"https://granadanet.tzkt.io/" +  stream.receiver + "/operations"}>{stream.receiver}</a></td>
+                                            <td><img src={Tezos} className="tezos-icon"/>{stream.deposit/1000000}</td>
                                             <td>{stream.startTime}</td>
                                             <td>{stream.stopTime}</td>
                                         </tr>

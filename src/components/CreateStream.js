@@ -5,9 +5,10 @@ import DateTimePicker from 'react-datetime-picker';
 import '../css/create-stream.css'
 
 import StreamIllustration from '../assets/stream.png'
+import CreateStreamIcon from '../assets/CreateStream.png'
 
 
-const CreateStream = () =>{
+const CreateStream = () => {
     const selector = useSelector(state => {return state.walletConfig.user});
     const dispatch = useDispatch();
     const [token, setToken] = useState("");
@@ -38,40 +39,45 @@ const CreateStream = () =>{
         <>
         <div className="container ">
             <div className="row">
-                <div className="col-4 col-md-4 col-sm-4 mx-auto main">
-                    <h2 className="create-stream-head text-center">Create Stream</h2>
-                    <form className="form">
-                        <div className="form-group">
-                            <label>Select Token</label>
-                            <select class="form-control" id="token" onChange={(e)=>{setToken(e.target.value)}}>
-                                <option value="Tez">Tez</option>
-                                <option value="FA12">FA1.2</option>
-                                <option value="FA2">FA2</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <input type="text" className="form-control" id="amount" value={amount} onChange={(e)=>{setAmount(e.target.value)}}   placeholder="How much do you want to stream?"/>
-                        </div>
-                        <div className="form-group">
-                            <input type="text" className="form-control" id="receiver" value={receiver} onChange={(e)=>{setReceiver(e.target.value)}}   placeholder="Who is the receiver?"/>
-                        </div>
-                        <div className="form-group">
-                            <label>Start time</label>
-                            <DateTimePicker
-                                onChange={setStartTime}
-                                value={startTime}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>End time</label>
-                            <DateTimePicker
-                                onChange={setEndTime}
-                                value={endTime}
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-create mx-auto" onClick={(e)=>{handleOnSubmit(e);console.log("something")}}>Submit</button>
-                    </form>
-                    
+                <div className="col-5 col-md-5 col-sm-5 mx-auto">
+                    <div className="container-create">
+                        <h2 className="create-stream-head text-center">Create Stream<img src={CreateStreamIcon} className="create-stream-icon"/></h2>
+                        <form className="form">
+                            <div className="form-group">
+                                <label className="label">Token</label>
+                                <select class="form-select" id="token" onChange={(e)=>{setToken(e.target.value)}}>
+                                    <option value="Tez">Tez</option>
+                                    <option value="FA12">FA1.2</option>
+                                    <option value="FA2">FA2</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label className="label">Amount</label>
+                                <input type="text" className="form-control" id="amount" value={amount} onChange={(e)=>{setAmount(e.target.value)}}   placeholder="How much do you want to stream?"/>
+                            </div>
+                            <div className="form-group">
+                                <label className="label">Receiver</label>
+                                <input type="text" className="form-control" id="receiver" value={receiver} onChange={(e)=>{setReceiver(e.target.value)}}   placeholder="Who is the receiver?"/>
+                            </div>
+                            <div className="form-group">
+                                <label className="label">Start time</label>
+                                <DateTimePicker
+                                    className="form-control"
+                                    onChange={setStartTime}
+                                    value={startTime}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="label">End time</label>
+                                <DateTimePicker
+                                    className="form-control"
+                                    onChange={setEndTime}
+                                    value={endTime}
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e);console.log("something")}}>Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

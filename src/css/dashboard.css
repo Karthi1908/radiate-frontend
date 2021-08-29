@@ -55,7 +55,7 @@
 }
 
 table{
-    color: white;
+    color: transparent;
 }
 
 .dash-table-header{
@@ -64,8 +64,9 @@ table{
     font-size: 15px;
 }
 .dash-head{
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-family: 'Ubuntu', sans-serif;
+    padding-bottom: 50px;
 }
 
 .dash-table-body{
@@ -84,6 +85,25 @@ table{
     padding: 20px;
     background-color: white;
     margin-top: 30px;
+}
+.top-head{
+    margin-bottom: 30px;
+}
+
+.streaming{
+    color: green;
+}
+.cancelled{
+    color: rgb(163, 18, 7);
+}
+.dash-row{
+    border-top: 1px solid rgb(214, 213, 213);
+}
+
+.tezos-icon{
+    width: 15px;
+    height: 17px;
+    margin-right: 7px;
 }
 
 @media screen and (max-width: 1000px) {

@@ -1,9 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { connectWallet } from '../actions';
+import { Link } from 'react-router-dom';
+
 import '../css/dashboard.css';
 
 import Illus from '../assets/illus.png'
+import Clock from '../assets/clock.png'
+import Tezos from '../assets/tezos.png'
 
 export const Dashboard = (({ streams }) => {
     const selector = useSelector(state => {return state.walletConfig.user});
@@ -23,22 +27,25 @@ export const Dashboard = (({ streams }) => {
                 <div className="row">
                     <div className="col-12 table-section">
                         <div className="table-responsive">
-                            <table className="table table-light table-hover table-borderless">
-                                <thead>
+                            <table className="table table-light table-borderless">
+                                <thead className="top-head">
                                     <tr className="dash-head">
-                                        <th scope="col" className="dash-table-header">STREAM ID</th>
+                                        <th scope="col" className="dash-table-header">STATUS</th>
                                         <th scope="col" className="dash-table-header">SENDER</th>
-                                        <th scope="col" className="dash-table-header">REMAINING BALANCE</th>
+                                        <th scope="col" className="dash-table-header">BALANCE</th>
                                         <th scope="col" className="dash-table-header">START TIME</th>
                                         <th scope="col" className="dash-table-header">STOP TIME</th>
                                     </tr>
                                 </thead>
                                 <tbody className="dash-body">
                                         {streams.map((stream, i) => {
-                                            return <tr>
-                                                <td scope="row" className="dash-table-body">{stream.streamId}</td>
-                                                <td className="sender dash-table-body">{stream.sender}</td>
-                                                <td className="dash-table-body">{stream.remainingBalance}</td>
+                                            return <tr className="dash-row">
+                                                {(stream.isActive)?
+                                                    <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td>:
+                                                    <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
+                                                }
+                                                <td className="sender dash-table-body"><a target="_blank" href={"https://granadanet.tzkt.io/" +  stream.sender + "/operations"}>{stream.sender}</a></td>
+                                                <td className="dash-table-body"><img src={Tezos} className="tezos-icon"/>{stream.remainingBalance/1000000}</td>
                                                 <td className="dash-table-body">{stream.startTime}</td>
                                                 <td className="dash-table-body">{stream.stopTime}</td>
                                             </tr>

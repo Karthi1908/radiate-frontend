@@ -14,7 +14,7 @@ const Pay = () => {
 
     useEffect(async () => {
         const create = createClient({
-            url: 'ws://hasura-radiateapi.herokuapp.com/v1/graphql'
+            url: 'wss://hasura-radiateapi.herokuapp.com/v1/graphql'
         });
         
         if(selector.userAddress!==""){

@@ -1,37 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { connectWallet } from '../actions';
-import { createClient, everything } from 'radiate-finance-sdk';
 import '../css/dashboard.css';
 
 import Illus from '../assets/illus.png'
 
-export const Dashboard = (() => {
+export const Dashboard = (({ streams }) => {
     const selector = useSelector(state => {return state.walletConfig.user});
     const dispatch = useDispatch();
-
-    const [streams, setStream] = useState([]);
-    
-
-    useEffect(async () => {
-        const create = createClient({
-            url: 'wss://hasura-radiateapi.herokuapp.com/v1/graphql'
-        });
-        
-        if(selector.userAddress!==""){
-            await create.chain.subscription.radiateStream({
-            
-                where:{'receiver': {_eq: selector.userAddress}}
-    
-            }).get({...everything}).subscribe(e => {
-                setStream(e);
-                console.log(e)
-            });
-
-        }
-    }, [selector.userAddress]);
-
-    
 
     return (
         

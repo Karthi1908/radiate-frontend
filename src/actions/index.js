@@ -213,10 +213,10 @@ export const withdraw = (withdrawParams) => {
             const op = await contractInstance.contract.methods.withdraw(
                 withdrawParams.amount,
                 withdrawParams.streamId
-            )
+            ).send();
             await op.confirmation();
         }catch(e){
-        
+            console.log(e);
         }
     }
 }
@@ -228,10 +228,10 @@ export const cancelStream = (cancelParams) => {
             const { contractInstance } = getState();
             const op = await contractInstance.contract.methods.cancelStream(
                 cancelParams.streamId
-            )
+            ).send();
             await op.confirmation();
         }catch(e){
-        
+            console.log(e);
         }
     }
 }

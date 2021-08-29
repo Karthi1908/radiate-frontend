@@ -1,0 +1,49 @@
+.main-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-card{
+    border: none;
+}
+
+.title{
+    text-align: center;
+    color: #333333;
+    font-size: 70px
+}
+
+.detail-time-flex{
+    text-align: center;
+    margin-top: 150px;
+}
+
+.span-time{
+    font-size: 17px;
+    font-weight: 500;
+    margin-right: 11px;
+}
+
+.detail-start-time{
+    margin-bottom: 20px;
+}
+
+.btn-withdraw {
+    background-color: #3867d6;
+    color: white;
+}
+
+.card-status{
+    color: #3867d6;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.card-body{
+    text-align: center;
+}
+.tezos-icon-detail{
+    width: 38px;
+    height: 60px;
+    
+}

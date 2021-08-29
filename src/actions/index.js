@@ -196,9 +196,57 @@ export const createStream = (formData) => {
             //
             console.log(op)
             console.log(op.toTransferParams())
-            
             await op.confirmation();
-            
+        }catch(e){
+            console.log(e);
+        }
+    }
+}
+
+export const createStreamFA2 = (formData) => {
+    return async (dispatch, getState) => {
+        try{
+            await dispatch(contractInstanceAction());
+            const { contractInstance } = getState();
+            console.log("contract instance")
+            console.log(contractInstance.contract)
+            const op = contractInstance.contract.methods.createStream(
+                Math.floor(formData.amount/formData.duration),
+                formData.receiver,
+                (Math.floor(formData.startTime)).toString(),
+                (Math.floor((formData.stopTime))).toString(),
+                "FA2",
+                [[formData.contractAddress, formData.tokenID]]
+            ).send();
+            //
+            console.log(op)
+            console.log(op.toTransferParams())
+            await op.confirmation();
+        }catch(e){
+            console.log(e);
+        }
+    }
+}
+
+export const createStreamFA12 = (formData) => {
+    return async (dispatch, getState) => {
+        try{
+            await dispatch(contractInstanceAction());
+            const { contractInstance } = getState();
+            console.log("contract instance")
+            console.log(contractInstance.contract)
+            const op = contractInstance.contract.methods.createStream(
+                Math.floor(formData.amount/formData.duration),
+                formData.receiver,
+                (Math.floor(formData.startTime)).toString(),
+                (Math.floor((formData.stopTime))).toString(),
+                "FA12",
+                [[formData.contractAddress]]
+            ).send();
+            //
+            console.log(op)
+            console.log(op.toTransferParams())
+            await op.confirmation();
         }catch(e){
             console.log(e);
         }

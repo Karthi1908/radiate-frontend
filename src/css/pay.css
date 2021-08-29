@@ -11,7 +11,7 @@
 }
 
 .dash-head{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -19,6 +19,7 @@
     color: #333333;
     font-weight: 400;
     font-size: 15px;
+    margin-top: 20px;
 }
 
 .table-section{
@@ -87,4 +88,20 @@
 .top-create-btn:hover, .top-create-btn:active, .top-create-btn:focus{
     background-color: #3867d6;
     color: whitesmoke;
+}
+
+.streaming{
+    color: green;
+}
+.cancelled{
+    color: rgb(163, 18, 7);
+}
+.dash-row{
+    border-top: 1px solid rgb(214, 213, 213);
+}
+
+.tezos-icon{
+    width: 15px;
+    height: 17px;
+    margin-right: 7px;
 }

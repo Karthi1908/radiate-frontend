@@ -3,3 +3,37 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.main-card{
+    border: none;
+}
+
+.title{
+    text-align: center;
+    color: #333333;
+    font-size: 50px
+}
+
+.detail-time-flex{
+    text-align: center;
+    margin-top: 150px;
+}
+
+.span-time{
+    font-size: 17px;
+    font-weight: 500;
+    margin-right: 11px;
+}
+
+.detail-start-time{
+    margin-bottom: 20px;
+}
+
+.btn-withdraw {
+    background-color: #3867d6;
+}
+
+.card-status{
+    color: green;
+
+}

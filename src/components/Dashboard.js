@@ -46,8 +46,8 @@ export const Dashboard = (({ streams }) => {
                                                 }
                                                 <td className="sender dash-table-body"><a target="_blank" href={"https://granadanet.tzkt.io/" +  stream.sender + "/operations"}>{stream.sender}</a></td>
                                                 <td className="dash-table-body"><img src={Tezos} className="tezos-icon"/>{stream.remainingBalance/1000000}</td>
-                                                <td className="dash-table-body">{stream.startTime}</td>
-                                                <td className="dash-table-body">{stream.stopTime}</td>
+                                                <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString()+" " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
+                                                <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString()+" " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>
                                             </tr>
                                         })}
                                 </tbody>

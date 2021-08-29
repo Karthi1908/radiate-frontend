@@ -42,8 +42,8 @@ const Pay = ({ senderStreams }) => {
                                             }
                                             <td className="receiver"><a target="_blank" href={"https://granadanet.tzkt.io/" +  stream.receiver + "/operations"}>{stream.receiver}</a></td>
                                             <td><img src={Tezos} className="tezos-icon"/>{stream.deposit/1000000}</td>
-                                            <td>{stream.startTime}</td>
-                                            <td>{stream.stopTime}</td>
+                                            <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString()+" " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
+                                                <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString()+" " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>
                                         </tr>
                                     })}
                                 </tbody>

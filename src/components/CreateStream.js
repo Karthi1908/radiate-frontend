@@ -12,7 +12,7 @@ const CreateStream = () => {
     const selector = useSelector(state => {return state.walletConfig.user});
     const dispatch = useDispatch();
     const [token, setToken] = useState("");
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState("");
     const [receiver, setReceiver] = useState("");
     const [duration, setDuration] = useState("");
     const [contractAddress, setContractAddress] = useState("");

@@ -1,4 +1,4 @@
-import { TezosToolkit } from "@taquito/taquito";
+import { TezosToolkit, OpKind } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import {
   NetworkType,
@@ -109,7 +109,7 @@ export const disconnectWallet = () => {
     return async (dispatch, getState) => {
         //window.localStorage.clear();
         const { walletConfig } = getState();
-        const tezosToolkit =  new TezosToolkit("https://florencenet.smartpy.io/");
+        const tezosToolkit =  new TezosToolkit("https://granadanet.smartpy.io/");
 
         dispatch({
             type:"DISCONNECT_WALLET",
@@ -208,20 +208,49 @@ export const createStreamFA2 = (formData) => {
         try{
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
+            const { walletConfig } = getState();
             console.log("contract instance")
             console.log(contractInstance.contract)
-            const op = contractInstance.contract.methods.createStream(
-                Math.floor(formData.amount/formData.duration),
-                formData.receiver,
-                (Math.floor(formData.startTime)).toString(),
-                (Math.floor((formData.stopTime))).toString(),
-                "FA2",
-                [[formData.contractAddress, formData.tokenID]]
-            ).send();
-            //
-            console.log(op)
-            console.log(op.toTransferParams())
-            await op.confirmation();
+            const contract = await walletConfig.tezos.tezosToolkit.wallet.at(formData.contractAddress);
+            const batch = await walletConfig.tezos.tezosToolkit.wallet.batch([{
+                    kind: OpKind.TRANSACTION,
+                    ...contract.methods.update_operators([{
+                                add_operator:{
+                                    owner: walletConfig.user.userAddress,
+                                    operator: config.contractAddress, 
+                                    token_id: formData.tokenID
+                                }
+                    }]).toTransferParams()
+                },
+                {
+                    kind: OpKind.TRANSACTION,
+                    ...contractInstance.contract.methods.createStream(
+                        Math.floor(formData.amount/formData.duration),
+                        formData.receiver,
+                        (Math.floor(formData.startTime)).toString(),
+                        (Math.floor((formData.stopTime))).toString(),
+                        "FA2",
+                        // [[
+                            formData.contractAddress,
+                            formData.tokenID
+                        // ]]
+                    ).toTransferParams()
+                },
+                {
+                    kind: OpKind.TRANSACTION,
+                    ...contract.methods.update_operators([{
+                            remove_operator:{
+                                owner: walletConfig.user.userAddress,
+                                operator: config.contractAddress, 
+                                token_id: formData.tokenID
+                            }
+                    }]).toTransferParams()
+                }
+            ]);
+            const batchOp = await batch.send();
+            console.log('Operation hash:', batchOp);
+            await batchOp.confirmation();
+            
         }catch(e){
             console.log(e);
         }
@@ -233,20 +262,30 @@ export const createStreamFA12 = (formData) => {
         try{
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
+            const { walletConfig } = getState();
             console.log("contract instance")
             console.log(contractInstance.contract)
-            const op = contractInstance.contract.methods.createStream(
-                Math.floor(formData.amount/formData.duration),
-                formData.receiver,
-                (Math.floor(formData.startTime)).toString(),
-                (Math.floor((formData.stopTime))).toString(),
-                "FA12",
-                [[formData.contractAddress]]
-            ).send();
-            //
-            console.log(op)
-            console.log(op.toTransferParams())
-            await op.confirmation();
+            const contract = await walletConfig.tezos.tezosToolkit.wallet.at(formData.contractAddress);
+            const batch = await walletConfig.tezos.tezosToolkit.wallet.batch([
+                {
+                    kind: OpKind.TRANSACTION,
+                    ...contract.methods.approve(config.contractAddress, (Math.floor(formData.amount/formData.duration)*((Math.floor((formData.stopTime))) - (Math.floor(formData.startTime)))).toString()).toTransferParams() 
+                },
+                {
+                    kind: OpKind.TRANSACTION,
+                    ...contractInstance.contract.methods.createStream(
+                        Math.floor(formData.amount/formData.duration),
+                        formData.receiver,
+                        (Math.floor(formData.startTime)).toString(),
+                        (Math.floor((formData.stopTime))).toString(),
+                        "FA12",
+                        formData.contractAddress
+                    ).toTransferParams()   
+                }
+            ]);
+            const batchOp = await batch.send();
+            console.log('Operation hash:', batchOp);
+            await batchOp.confirmation();
         }catch(e){
             console.log(e);
         }

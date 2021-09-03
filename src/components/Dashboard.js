@@ -25,8 +25,9 @@ export const Dashboard = (({ streams }) => {
                 </div>:
                 <div className="row">
                     <div className="col-12 table-section">
+                        <h3 className="receive-dash-head">Receiving streams</h3>
                         <div className="table-responsive">
-                            <table className="table table-light table-borderless">
+                            <table className="table table-borderless">
                                 <thead className="top-head">
                                     <tr className="dash-head">
                                         <th scope="col" className="dash-table-header">STATUS</th>
@@ -39,11 +40,11 @@ export const Dashboard = (({ streams }) => {
                                 <tbody className="dash-body">
                                         {streams.map((stream, i) => {
                                             return <tr className="dash-row">
-                                                {(stream.isActive)?
+                                                {(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime())?
                                                     <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td>:
                                                     <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
                                                 }
-                                                <td className="sender dash-table-body"><a target="_blank" href={"https://granadanet.tzkt.io/" +  stream.sender + "/operations"}>{stream.sender}</a></td>
+                                                <td className=" dash-table-body"><a className="sender" target="_blank" href={"https://granadanet.tzkt.io/" +  stream.sender + "/operations"}>{stream.sender}</a></td>
                                                 <td className="dash-table-body"><img src={Tezos} className="tezos-icon"/>{stream.remainingBalance/1000000}</td>
                                                 <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString()+" " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
                                                 <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString()+" " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>

@@ -18,7 +18,6 @@ export const Dashboard = (({ streams }) => {
         <div className="container">
             {(selector.userAddress==="")?
                 <div className="col main-section container-content" align="center">
-                    {/* <div className="img-div"><img src={Illus} className="dash-img" /></div> */}
                     <div className="dash-main">
                         <p className="sign-in-text">Sign in with your tezos account to view incoming streams</p>
                         <button type="button" onClick={(e)=>{dispatch(connectWallet())}} className="btn sign-in-btn">Connect Wallet</button>

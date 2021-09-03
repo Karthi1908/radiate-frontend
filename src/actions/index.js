@@ -259,7 +259,7 @@ export const withdraw = (withdrawParams) => {
             await dispatch(contractInstanceAction());
             const { contractInstance } = getState();
             const op = await contractInstance.contract.methods.withdraw(
-                withdrawParams.amount,
+                Math.floor(withdrawParams.amount * (10**withdrawParams.decimal)),
                 withdrawParams.streamId
             ).send();
             await op.confirmation();

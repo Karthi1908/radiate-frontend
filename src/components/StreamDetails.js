@@ -68,7 +68,7 @@ const StreamDetails = () => {
         e.preventDefault();
         handleOnWithdraw();
         if (withdrawAmount !== 0) {
-            dispatch(withdraw({ amount: withdrawAmount, streamId: stream.streamId }));
+            dispatch(withdraw({ amount: withdrawAmount, streamId: stream.streamId, decimal: 6 }));
             setWithdrawAmount(0);
         }
     }
@@ -96,7 +96,7 @@ const StreamDetails = () => {
                             <div className="card main-card">
                                 <div className="card-body ">
                                     <div className="row justify-content-center">
-                                        <div className="circle-progress-bar" style={{width:250, height:250}}>
+                                        <div className="circle-progress-bar" style={{width:450, height:450}}>
                                             <CircularProgressbar
                                                 value={percentage}
                                                 text={`${flow}`}
@@ -125,7 +125,7 @@ const StreamDetails = () => {
                                     <span className="span-time">Started on: </span>{(new Date(Date.parse(stream.startTime)).toDateString()) + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}
                                 </div>
                                 <div className="detail-stop-time">
-                                    <span className="span-time">Ended on: </span>{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}
+                                    <span className="span-time">Will End on: </span>{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}
                                 </div>
                             </div>
                         </div>

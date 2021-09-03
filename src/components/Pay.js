@@ -1,14 +1,16 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Tezos from '../assets/tezos.png'
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
-import '../css/pay.css';
+import Tezos from "../assets/tezos.png";
+import "../css/pay.css";
 
 const Pay = ({ senderStreams }) => {
-
-    const selector = useSelector(state => {return state.walletConfig.user});
-    const dispatch = useDispatch();
+	const selector = useSelector((state) => {
+		return state.walletConfig.user;
+	});
+	const dispatch = useDispatch();
 
     if(senderStreams.length > 0){
         return (

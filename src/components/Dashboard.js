@@ -1,17 +1,20 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { connectWallet } from '../actions';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { connectWallet } from "../actions";
+import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
-import '../css/dashboard.css';
+import "../css/dashboard.css";
 
-import Illus from '../assets/illus.png'
-import Clock from '../assets/clock.png'
-import Tezos from '../assets/tezos.png'
+import Illus from "../assets/illus.png";
+import Clock from "../assets/clock.png";
+import Tezos from "../assets/tezos.png";
 
-export const Dashboard = (({ streams }) => {
-    const selector = useSelector(state => {return state.walletConfig.user});
-    const dispatch = useDispatch();
+export const Dashboard = ({ streams }) => {
+	const selector = useSelector((state) => {
+		return state.walletConfig.user;
+	});
+	const dispatch = useDispatch();
 
     return (
         
@@ -58,6 +61,6 @@ export const Dashboard = (({ streams }) => {
             }
         </div>
     );
-});
+}
 
 // receiving streams

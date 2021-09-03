@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap');
 
-.main-section{
+/* .main-section{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,4 +111,122 @@ table{
     .img-div{
         display: none;
     }
+} */
+
+/* ***********************************   Dark Theme    *********************************************** */
+
+.main-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in-text{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.sign-in-btn{
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #97D5D6;
+    color: #130F40;
+    border-radius: 40px;
+    padding:8px 25px;
+    font-family: 'Mulish', sans-serif;
+}
+
+.sign-in-btn:hover, .sign-in-btn:active, .sign-in-btn:focus{
+    background-color: #97D5D6;
+    color: #130F40;
+    text-decoration: none;
+}
+
+.container-content{
+    height: 80vh;
+    margin-top: 30px;
+    border-radius: 20px;
+    background-color: #30336b;
+    color: white;
+}
+
+.dash-main{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.receive-dash-head{
+    color: white;
+    margin-bottom: 40px;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.dash-table-header{
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+}
+.dash-head{
+    margin-bottom: 40px;
+    font-family: 'Ubuntu', sans-serif;
+    padding-bottom: 50px;
+}
+
+.dash-table-body{
+    color: #f5f6fa;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.sender{
+    font-family: 'Cutive Mono', monospace;
+    color: #dff9fb;
+    font-size: 17px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.sender:hover, .sender:active, .sender:focus{
+    color: whitesmoke;
+}
+
+.table{
+    background-color: #30336b;
+}
+
+.table-section{
+    padding: 20px;
+    background-color: #30336b;
+    margin-top: 30px;
+}
+.top-head{
+    margin-bottom: 30px;
+}
+
+.streaming{
+    color: #97D5D6;
+}
+.cancelled{
+    color: #fab1a0;
+}
+.streaming:hover, .streaming:active, .streaming:focus{
+    color: #dfe6e9;
+}
+.cancelled:hover, .cancelled:active, .cancelled:focus{
+    color: #dfe6e9;
+}
+.dash-row{
+    border-top: 1px solid #8D8DDB;
+}
+
+.tezos-icon{
+    width: 15px;
+    height: 17px;
+    margin-right: 7px;
 }

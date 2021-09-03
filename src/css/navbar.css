@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 
-body{
+/* body{
     background-color: #f8faff;
-}
+} */
 
-.navbar{
+/* .navbar{
     font-family: 'Poppins', sans-serif;
     border-bottom: 1px solid #dfe6e9;
     background-color: white;
@@ -13,29 +13,26 @@ body{
 .navbar-brand{
     font-weight: 600;
     font-size: 30px;
+    color: #333333;
 }
 
 .mar-left-nav{
     margin-left: auto;
-}
+} */
 
-.nav-btn{
+/* .nav-btn{
     border-radius: 20px;
     border: 1px solid #dfe6e9;
     background-color: transparent;
     font-size: 15px;
     cursor: pointer;
     padding: 5px 10px;
-}
+} */
 
 .con-btn{
     margin-left: 10px;
     padding: 5px 20px !important;
 }
-
-/* .btns-div{
-    text-align: center;
-} */
 
 .btn:active .btn:focus .btn:hover{
     text-decoration: none;
@@ -44,7 +41,53 @@ body{
 }
 
 
-.nav-btn:hover .nav-btn:active .nav-btn:focus{
+/* .nav-btn:hover .nav-btn:active .nav-btn:focus{
     text-decoration: none;
     outline: 0;
+} */
+
+/* ***********************************   Dark Theme    *********************************************** */
+
+body{
+    background-color: #130F40;
 }
+
+.navbar{
+    font-family: 'Poppins', sans-serif;
+    border-bottom: 1px solid #8D8DDB;
+    background-color: #130F40;
+}
+
+.navbar-brand{
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
+}
+.navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus{
+    color: #8D8DDB;
+}
+
+.mar-left-nav{
+    margin-left: auto;
+}
+
+.nav-btn{
+    border-radius: 20px;
+    border: 2px solid #8D8DDB;
+    background-color: transparent;
+    color: #8D8DDB;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.nav-btn:hover, .nav-btn:focus, .nav-btn:active{
+    text-decoration: none;
+    background-color: #8D8DDB;
+    color: white;
+}
+/* .navbar-toggler{
+    background-color: white;
+}
+.nav-lines-span{
+    color: white;
+} */

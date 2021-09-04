@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
-import Tezos from "../assets/tezos.png";
+import Tezos from "../assets/tezos-icon.png";
 import "../css/pay.css";
 
 const Pay = ({ senderStreams }) => {

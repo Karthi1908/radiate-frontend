@@ -49,13 +49,14 @@
 /* ***********************************   Dark Theme    *********************************************** */
 
 body{
-    background-color: #130F40;
+    /* background-color: #130F40; */
+    background-color: #0C0821;
 }
 
 .navbar{
     font-family: 'Poppins', sans-serif;
     border-bottom: 1px solid #8D8DDB;
-    background-color: #130F40;
+    background-color: #0C0821;
 }
 
 .navbar-brand{

@@ -2,11 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Neuton:wght@300&display=swap');
 
-/* body{
-    background-color: whitesmoke;
-} */
-
-.create-stream-icon{
+/* .create-stream-icon{
     width: 30px;
     height: 30px;
     margin-left: 7px;
@@ -46,4 +42,99 @@
     font-family: 'Poppins', sans-serif;
     background-color: #3867d6;
     color: white;
+} */
+
+/* ***********************************   Dark Theme    *********************************************** */
+
+.create-stream-icon{
+    width: 30px;
+    height: 30px;
+    margin-left: 7px;
+}
+
+.container-create{
+    background-color: #1d1736;
+    padding: 40px;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.create-stream-head{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.form-group{
+    margin-bottom: 20px;
+}
+
+.react-datetime-picker__wrapper{
+    border: none;
+}
+
+svg{
+    stroke: white;
+}
+input{
+    color: white;
+}
+
+.label{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-control, .form-select{
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0;
+    border-bottom: 1px solid #8D8DDB;
+    padding-left: 0;
+    color: white;
+}
+.form-control:hover, .form-control:active, .form-control:focus{
+    text-decoration: none;
+    outline: 0;
+    background-color: transparent;
+    color: white;
+    border-color: 1px solid #8D8DDB;
+    box-shadow: 1px solid #8D8DDB;
+}
+
+.form-control::placeholder{
+    color: #8D8DDB;
+}
+
+.btn-create{
+    margin-top: 30px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #97D5D6;
+    color: #130F40;
+    font-weight: 500;
+}
+
+option{
+    color: white;
+    background-color: #1d1736;
+}
+
+@media screen and (max-width: 480px) {
+    .container-create{
+        padding: 40px;
+        margin-top: 70px;
+    }
+    .mx-auto{
+        margin-right: 0;
+        margin-left: 0;
+    }
 }

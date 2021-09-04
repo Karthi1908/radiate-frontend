@@ -5,7 +5,9 @@ import DateTimePicker from 'react-datetime-picker';
 import '../css/create-stream.css'
 
 import StreamIllustration from '../assets/stream.png'
-import CreateStreamIcon from '../assets/CreateStream.png'
+import CreateStreamIcon from '../assets/tel-stream.png'
+
+import '../tokens.json'
 
 
 const CreateStream = () => {
@@ -56,13 +58,11 @@ const CreateStream = () => {
         // {console.log("step3")}
     }
 
-    // Todo: date picker issue
-
     return(
         <>
         <div className="container ">
             <div className="row">
-                <div className="col-5 col-md-5 col-sm-5 mx-auto">
+                <div className="col-sm-8 col-md-5  mx-auto">
                     <div className="container-create">
                         <h2 className="create-stream-head text-center">Create Stream<img src={CreateStreamIcon} className="create-stream-icon"/></h2>
                         <form className="form">

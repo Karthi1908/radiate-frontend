@@ -8,7 +8,7 @@ import "../css/dashboard.css";
 
 import Illus from "../assets/illus.png";
 import Clock from "../assets/clock.png";
-import Tezos from "../assets/tezos.png";
+import Tezos from "../assets/tezos-icon.png";
 
 export const Dashboard = ({ streams }) => {
 	const selector = useSelector((state) => {

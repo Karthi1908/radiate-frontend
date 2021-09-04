@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-import Tezos from '../assets/tezos.png';
+import Tezos from '../assets/tezos-icon.png';
 import '../css/stream-details.css';
+import Close from '../assets/close.png'
 
 
 const StreamDetails = () => {
@@ -93,8 +94,8 @@ const StreamDetails = () => {
                 <div className="container">
                     <div className="row align-items-center" style={{ height: '80vh' }}>
                         <div className="col-10">
-                            <div className="card main-card">
-                                <div className="card-body ">
+                            <div className="">
+                                <div className="card-body">
                                     <div className="row justify-content-center">
                                         <div className="circle-progress-bar" style={{width:450, height:450}}>
                                             <CircularProgressbar
@@ -103,24 +104,20 @@ const StreamDetails = () => {
                                                 styles={buildStyles({
                                                     rotation: 0.25,
                                                     strokeLinecap: 'round',
-                                                    textSize: '12px',
+                                                    textSize: '10px',
                                                     pathTransitionDuration: 1,
-                                                    pathColor: `rgba(61, 178, 255)`,
+                                                    pathColor: `#48cae4`,
                                                     textColor: '#000000',
-                                                    trailColor: '#d6d6d6',
+                                                    trailColor: '#C3C5FD',
                                                     backgroundColor: '#3e98c7',
                                                 })}
                                             />
                                         </div>
                                     </div>
-                                    {/* <h1 className="card-title title"> {flow}</h1> */}
                                     <p className="card-text text-center card-status">{(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ? "Streaming" : "Ended"}</p>
                                 </div>
                             </div>
                             <div className="detail-time-flex">
-                                {/* <div className="Streamed">
-                                    <span className="span-time">Streamed: </span>{(percentage)}
-                                </div> */}
                                 <div className="detail-start-time">
                                     <span className="span-time">Started on: </span>{(new Date(Date.parse(stream.startTime)).toDateString()) + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}
                                 </div>
@@ -131,7 +128,7 @@ const StreamDetails = () => {
                         </div>
                         <div className="col">
                             <div className="col">
-                                <div className="card btn" data-bs-toggle="modal" data-bs-target="#withdrawModal" onClick={handleOnWithdraw}>
+                                <div className="card btn card-custom" data-bs-toggle="modal" data-bs-target="#withdrawModal" onClick={handleOnWithdraw}>
                                     <div className="card-body">
                                         <h5 className="card-title">Withdraw</h5>
                                         <p className="card-text"></p>
@@ -139,7 +136,7 @@ const StreamDetails = () => {
                                 </div>
                             </div>
                             <div className="col">
-                                <div className="card btn" data-bs-toggle="modal" data-bs-target="#historyModal">
+                                <div className="card btn card-custom" data-bs-toggle="modal" data-bs-target="#historyModal">
                                     <div className="card-body">
                                         <h5 className="card-title">History</h5>
                                         <p className="card-text"></p>
@@ -147,7 +144,7 @@ const StreamDetails = () => {
                                 </div>
                             </div>
                             <div className="col">
-                                <div className="card btn" onClick={() => {dispatch(cancelStream({ streamId: stream.streamId })); }}>
+                                <div className="card btn card-custom" onClick={() => {dispatch(cancelStream({ streamId: stream.streamId })); }}>
                                     <div className="card-body">
                                         <h5 className="card-title">Cancel Stream</h5>
                                         <p className="card-text"></p>
@@ -161,11 +158,11 @@ const StreamDetails = () => {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title">History</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <a data-bs-dismiss="modal"><img src={Close} className="close" alt="close" /></a>
                                 </div>
                                 <div className="modal-body">
                                     <div className="table-responsive">
-                                        <table className="table table-light table-borderless">
+                                        <table className="table table-borderless">
                                             <thead>
                                                 <tr className="dash-head">
                                                     <th scope="col" className="dash-table-header">STATUS</th>
@@ -176,8 +173,8 @@ const StreamDetails = () => {
                                             <tbody className="dash-body">
                                                 {stream.history.map((element, idx) => {
                                                     return <tr className="dash-row" key={idx}>
-                                                        <td>Withdraw</td>
-                                                        <td><img src={Tezos} className="tezos-icon" />{element.amount / 1000000}</td>
+                                                        <td className="dash-table-body">Withdraw</td>
+                                                        <td className="dash-table-body"><img src={Tezos} className="tezos-icon" />{element.amount / 1000000}</td>
                                                         <td className="dash-table-body">@{new Date(Date.parse(element.timestamp)).toDateString() + " " + new Date(Date.parse(element.timestamp)).toTimeString().split(" GMT")[0]}</td>
                                                     </tr>
                                                 })}
@@ -193,7 +190,7 @@ const StreamDetails = () => {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title">Withdraw</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <a data-bs-dismiss="modal"><img src={Close} className="close" alt="close" /></a>
                                 </div>
                                 <div className="modal-body">
 

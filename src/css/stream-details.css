@@ -16,7 +16,7 @@
 
 .detail-time-flex{
     text-align: center;
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .span-time{
@@ -30,13 +30,14 @@
 }
 
 .btn-withdraw {
-    background-color: #3867d6;
-    color: white;
+    background-color: #97D5D6;
+    color: #1d1736;
 }
 
 .card-status{
-    color: #3867d6;
+    color: #97D5D6;
     font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
 }
 
 .card-body{
@@ -45,5 +46,30 @@
 .tezos-icon-detail{
     width: 38px;
     height: 60px;
-    
+}
+
+.CircularProgressbar-text{
+    font-weight: 100;
+}
+
+.card-custom{
+    background-color: transparent;
+    border: 1px solid #8D8DDB;
+    color: #8D8DDB;
+    border-radius: 5px;
+}
+
+.card-custom:hover, .card-custom:focus, .card-custom:active{
+    background-color: #8D8DDB;
+    color: #1d1736;
+}
+
+.modal-content{
+    background-color: #1d1736;
+    color: white;
+}
+.close{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 }

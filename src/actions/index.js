@@ -197,6 +197,7 @@ export const createStream = (formData) => {
             console.log(op)
             console.log(op.toTransferParams())
             await op.confirmation();
+            window.location.replace('/pay')
         }catch(e){
             console.log(e);
         }
@@ -250,7 +251,7 @@ export const createStreamFA2 = (formData) => {
             const batchOp = await batch.send();
             console.log('Operation hash:', batchOp);
             await batchOp.confirmation();
-            
+            window.location.replace('/pay')
         }catch(e){
             console.log(e);
         }
@@ -286,6 +287,7 @@ export const createStreamFA12 = (formData) => {
             const batchOp = await batch.send();
             console.log('Operation hash:', batchOp);
             await batchOp.confirmation();
+            window.location.replace('/pay')
         }catch(e){
             console.log(e);
         }

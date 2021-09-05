@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { connectWallet, disconnectWallet, createStream, createStreamFA2, createStreamFA12} from '../actions';
 import DateTimePicker from 'react-datetime-picker';
@@ -7,8 +7,7 @@ import '../css/create-stream.css'
 import StreamIllustration from '../assets/stream.png'
 import CreateStreamIcon from '../assets/tel-stream.png'
 
-import '../tokens.json'
-
+import tokenData from './tokens.json'
 
 const CreateStream = () => {
     const selector = useSelector(state => {return state.walletConfig.user});
@@ -22,6 +21,8 @@ const CreateStream = () => {
 
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
+
+    console.log(tokenData)
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
@@ -68,10 +69,13 @@ const CreateStream = () => {
                         <form className="form">
                             <div className="form-group">
                                 <label className="label">Token</label>
-                                <select class="form-select" id="token" onChange={(e)=>{setToken(e.target.value)}}>
+                                <select className="form-select form-select-lg" id="token" onChange={(e)=>{setToken(e.target.value)}}>
                                     <option value="Tez">Tez</option>
                                     <option value="FA12">FA1.2</option>
                                     <option value="FA2">FA2</option>
+                                    {tokenData.map((data) => {
+                                        return <option title="Not available on testnet">{data.symbol}</option>
+                                    })}
                                 </select>
                             </div>
                             {(token==="FA12" || token==="FA2")?(
@@ -110,7 +114,7 @@ const CreateStream = () => {
                                     value={endTime}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e);console.log("something")}}>Submit</button>
+                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e)}}>Submit</button>
                         </form>
                     </div>
                 </div>

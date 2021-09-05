@@ -4,6 +4,15 @@
     justify-content: center;
 }
 
+.container-content-details{
+    height: 85vh;
+    margin-top: 30px;
+    /* padding: 20px; */
+    border-radius: 20px;
+    background-color: #1d1736;
+    color: white;
+}
+
 .main-card{
     border: none;
 }
@@ -27,6 +36,10 @@
 
 .detail-start-time{
     margin-bottom: 20px;
+}
+
+.detail-stop-time{
+    margin-bottom: 30px;
 }
 
 .btn-withdraw {
@@ -72,4 +85,9 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
+}
+.back{
+    margin-top: 20px;
+    width: 50px;
+    height: 50px;
 }

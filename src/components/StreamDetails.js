@@ -3,12 +3,14 @@ import { useParams } from 'react-router';
 import { createClient, everything } from 'radiate-finance-sdk';
 import { withdraw, cancelStream, connectWallet } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 import Tezos from '../assets/tezos-icon.png';
 import '../css/stream-details.css';
 import Close from '../assets/close.png'
+import Back from '../assets/back.png'
 
 
 const StreamDetails = () => {
@@ -87,12 +89,18 @@ const StreamDetails = () => {
     }
 
     return (
-        <div className="container container-content">
+        <div className="container container-content-details">
             {(stream === undefined) ? (
                 <div className="container main-section" style={{ height: '80vh' }}><span>No such stream exists</span></div>
             ) : (
                 <div className="container">
-                    <div className="row align-items-center" style={{ height: '80vh' }}>
+                    <div className="row">
+                        {(stream.sender == selector.userAddress)?
+                        <Link to="/pay" ><img src={Back} className="back" alt="back" /></Link>:
+                        <Link to="/" ><img src={Back} className="back" alt="back" /></Link>
+                        }
+                    </div>
+                    <div className="row align-items-center" >
                         <div className="col-10">
                             <div className="">
                                 <div className="card-body">

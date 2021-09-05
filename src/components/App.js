@@ -14,8 +14,8 @@ const App = () => {
     const selector = useSelector(state => {return state.walletConfig.user});
     const dispatch = useDispatch();
 
-    const [senderStreams, setSenderStream] = useState([]);
-    const [streams, setStream] = useState([]);
+    const [senderStreams, setSenderStream] = useState(null);
+    const [streams, setStream] = useState(null);
 
     useEffect(() => {
         (async () => {

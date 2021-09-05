@@ -74,7 +74,7 @@ const CreateStream = () => {
                                     <option value="FA12">FA1.2</option>
                                     <option value="FA2">FA2</option>
                                     {tokenData.map((data) => {
-                                        return <option>{data.symbol}</option>
+                                        return <option title="Not available on testnet">{data.symbol}</option>
                                     })}
                                 </select>
                             </div>
@@ -114,7 +114,7 @@ const CreateStream = () => {
                                     value={endTime}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e);console.log("something")}}>Submit</button>
+                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e)}}>Submit</button>
                         </form>
                     </div>
                 </div>

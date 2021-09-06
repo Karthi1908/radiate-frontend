@@ -49,7 +49,6 @@
 /* ***********************************   Dark Theme    *********************************************** */
 
 body{
-    /* background-color: #130F40; */
     background-color: #0C0821;
 }
 
@@ -86,9 +85,23 @@ body{
     background-color: #8D8DDB;
     color: white;
 }
-/* .navbar-toggler{
-    background-color: white;
+
+@media screen and (max-width: 480px) {
+    .con-btn{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .nav-btn{
+        border: none;
+    }
+    .nav-item{
+        border-bottom: 1px solid #8D8DDB;
+        text-align: left;
+    }
+    .nav-item-1{
+        border-top: 1px solid #8D8DDB;
+    }
+    .navbar{
+        border: none;
+    }
 }
-.nav-lines-span{
-    color: white;
-} */

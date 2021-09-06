@@ -20,16 +20,16 @@ const NavBar = () =>{
 
     return(
         <>
-            <nav className="navbar navbar-expand-lg">
+            <nav className="navbar navbar-dark navbar-expand-lg">
                 <div className="container">
                     <a className="navbar-brand" href="/#">Radiate</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon nav-lines-span"></span>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div className="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
                         <ul className="navbar-nav mar-left-nav">
-                            <li className="nav-item">
+                            <li className="nav-item nav-item-1">
                                 <Link className="nav-link btn nav-btn con-btn" to='/'>Dashboard</Link>
                             </li>
                             <li className="nav-item">

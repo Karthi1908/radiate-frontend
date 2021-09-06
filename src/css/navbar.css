@@ -80,6 +80,9 @@ body{
     cursor: pointer;
     padding: 5px 10px;
 }
+.navbar-dark .navbar-nav .nav-link {
+    color: #8D8DDB;
+}
 .nav-btn:hover, .nav-btn:focus, .nav-btn:active{
     text-decoration: none;
     background-color: #8D8DDB;

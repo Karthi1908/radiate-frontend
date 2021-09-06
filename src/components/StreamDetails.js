@@ -23,6 +23,8 @@ const StreamDetails = () => {
     const [withdrawAmount, setWithdrawAmount] = useState(0);
     const [percentage, setPercentage] = useState(0);
 
+  
+    let multiplier = 1000000;
 
     useEffect(() => {
 
@@ -37,18 +39,22 @@ const StreamDetails = () => {
         }).get({ history: { ...everything }, ...everything }).subscribe(e => {
             if(e.length>0){
                 setStream(e[0]);
+                
+                if(e[0].token!==0){
+                    multiplier = 1;
+                }
                 if (new Date().getTime() > Date.parse(e[0].stopTime) || !e[0].isActive) {
-                    let amount_now = parseFloat((((e[0].remainingBalance) / 1000000))).toFixed(6);
+                    let amount_now = parseFloat((((e[0].remainingBalance) / multiplier))).toFixed(6);
                     console.log("Stream ended");
                     setFlow(`${amount_now} tez`);
                 }
                 setInterval(() => {
                     let timeNow = (new Date()).getTime() / 1000;
-                    let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / 1000000)).toFixed(6);
+                    let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / multiplier)).toFixed(6);
                     if (parseFloat(amount_now) > 0 && e[0].isActive && timeNow*1000 < Date.parse(e[0].stopTime)) {
                         setFlow(`${amount_now} tez`);
                     }
-                    const total = e[0].remainingBalance/1000000;
+                    const total = e[0].remainingBalance/multiplier;
                     setPercentage((amount_now/total)*100);
                 }, 500);
             }
@@ -182,7 +188,7 @@ const StreamDetails = () => {
                                                 {stream.history.map((element, idx) => {
                                                     return <tr className="dash-row" key={idx}>
                                                         <td className="dash-table-body">Withdraw</td>
-                                                        <td className="dash-table-body"><img src={Tezos} className="tezos-icon" />{element.amount / 1000000}</td>
+                                                        <td className="dash-table-body"><img src={Tezos} className="tezos-icon" />{element.amount / multiplier}</td>
                                                         <td className="dash-table-body">@{new Date(Date.parse(element.timestamp)).toDateString() + " " + new Date(Date.parse(element.timestamp)).toTimeString().split(" GMT")[0]}</td>
                                                     </tr>
                                                 })}

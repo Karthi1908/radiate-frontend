@@ -6,6 +6,18 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Tezos from "../assets/tezos-icon.png";
 import "../css/pay.css";
 
+
+const getIcon = (i) => {
+    if(i===1){
+        return <span className="token-tag">FA 1.2</span>
+    }else if(i===2){
+        return <span className="token-tag">FA 2</span>
+    }else{
+        return <img src={Tezos} className="tezos-icon" />;
+    }
+}
+
+
 const Pay = ({ senderStreams }) => {
     const selector = useSelector((state) => {
         return state.walletConfig.user;
@@ -94,7 +106,7 @@ const Pay = ({ senderStreams }) => {
                                                                         <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
                                                                     }
                                                                     <td className="receiver"><a className="receiver" target="_blank" href={"https://granadanet.tzkt.io/" + stream.receiver + "/operations"}>{stream.receiver}</a></td>
-                                                                    <td className="dash-table-body"><img src={Tezos} className="tezos-icon" />{stream.deposit / 1000000}</td>
+                                                                    <td className="dash-table-body">{getIcon(stream.token)}{stream.deposit / 1000000}</td>
                                                                     <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString() + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
                                                                     <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>
                                                                 </tr>

@@ -44,4 +44,17 @@ const contractInstanceReducer = (state={hasData:false, contract:null}, action) =
     }
 }
 
-export default combineReducers({walletConfig: connectWalletReducer, contractInstance: contractInstanceReducer});
+const createStreamStatus = (state = 0, action) => {
+    switch(action.type){
+        case "CREATE_STREAM_SUCCESS":
+            return 1;
+        case "CREATE_STREAM_FAILED":
+            return 2;
+        case "INITIAL_STATUS":
+            return 0;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({walletConfig: connectWalletReducer, contractInstance: contractInstanceReducer, createStreamStatus:createStreamStatus});

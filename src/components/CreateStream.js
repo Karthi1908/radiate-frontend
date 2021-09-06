@@ -3,38 +3,73 @@ import { useSelector, useDispatch } from 'react-redux';
 import { connectWallet, disconnectWallet, createStream, createStreamFA2, createStreamFA12} from '../actions';
 import DateTimePicker from 'react-datetime-picker';
 import '../css/create-stream.css'
+import { Link } from 'react-router-dom';
 
 import StreamIllustration from '../assets/stream.png'
 import CreateStreamIcon from '../assets/tel-stream.png'
 
 import tokenData from './tokens.json'
 
+const alerts = (i) => {
+    if(i===1){
+        return (
+            <div class="alert alert-success" role="alert">
+                Successfully created stream.
+            </div>
+        );
+    }else{
+        return (
+            <div class="alert alert-warning" role="alert">
+                Some error occurred.
+            </div>
+        );
+    }
+}
+
 const CreateStream = () => {
     const selector = useSelector(state => {return state.walletConfig.user});
+    const statusSelector = useSelector(state=>state.createStreamStatus);
     const dispatch = useDispatch();
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState("Tez");
     const [amount, setAmount] = useState("");
     const [receiver, setReceiver] = useState("");
     const [duration, setDuration] = useState("");
     const [contractAddress, setContractAddress] = useState("");
     const [tokenID, setTokenID] = useState("");
+    const [loader, setLoader] = useState(false);
+    const [status, setStatus] = useState(0);
 
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
-    console.log(tokenData)
+    useEffect(()=>{
+        dispatch({type:"INITIAL_STATUS"});
+    },[])
+
+    useEffect(()=>{ 
+        if(loader){
+            if(statusSelector === 1){
+                setStatus(1);
+            }else if(statusSelector === 2){
+                setStatus(2);
+            }
+        }
+        setLoader(false);
+        setTimeout(()=>{setStatus(0);dispatch({type:"INITIAL_STATUS"});}, 3000);
+    },[statusSelector]);
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        setLoader(true);
         // console.log('step2');
-        if(token === "Tez"){
-            dispatch(createStream({
-                amount : amount*1000000,
+        if(token === "FA12"){
+            dispatch(createStreamFA12({
+                amount : amount,
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
-                token: "Tez",
                 stopTime: (endTime.getTime())/1000,
-                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
+                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
+                contractAddress: contractAddress
             }))
         }else if(token === "FA2"){
             dispatch(createStreamFA2({
@@ -47,15 +82,22 @@ const CreateStream = () => {
                 tokenID: tokenID
             }))
         }else {
-            dispatch(createStreamFA12({
-                amount : amount,
+            dispatch(createStream({
+                amount : amount*1000000,
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
+                token: "Tez",
                 stopTime: (endTime.getTime())/1000,
-                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
-                contractAddress: contractAddress
+                duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
             }))
         }
+        setAmount("");
+        setReceiver("");
+        setToken("");
+        setStartTime(new Date());
+        setEndTime(new Date());
+        setContractAddress("");
+        setTokenID("");
         // {console.log("step3")}
     }
 
@@ -114,7 +156,9 @@ const CreateStream = () => {
                                     value={endTime}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e)}}>Submit</button>
+                            {status!==0?alerts(status):null}
+                            <button type="submit" className="btn btn-create" onClick={(e)=>{handleOnSubmit(e)}}>{loader?<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>:null} Submit</button>
+                            <Link style={{marginLeft:10}} className="btn btn-create" to="/pay">Back</Link>
                         </form>
                     </div>
                 </div>

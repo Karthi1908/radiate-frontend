@@ -185,7 +185,7 @@ export const createStream = (formData) => {
             const { contractInstance } = getState();
             console.log("contract instance")
             console.log(contractInstance.contract)
-            const op = contractInstance.contract.methods.createStream(
+            const op = await contractInstance.contract.methods.createStream(
                 Math.floor(formData.amount/formData.duration),
                 formData.receiver,
                 (Math.floor(formData.startTime)).toString(),
@@ -195,11 +195,11 @@ export const createStream = (formData) => {
             ).send({mutez: true, amount:  Math.floor(formData.amount/formData.duration)*((Math.floor((formData.stopTime))) - (Math.floor(formData.startTime)))})
             //
             console.log(op)
-            console.log(op.toTransferParams())
             await op.confirmation();
-            window.location.replace('/pay')
+            dispatch({type:"CREATE_STREAM_SUCCESS"});
         }catch(e){
             console.log(e);
+            dispatch({type:"CREATE_STREAM_FAILED"});
         }
     }
 }
@@ -251,9 +251,10 @@ export const createStreamFA2 = (formData) => {
             const batchOp = await batch.send();
             console.log('Operation hash:', batchOp);
             await batchOp.confirmation();
-            window.location.replace('/pay')
+            dispatch({type:"CREATE_STREAM_SUCCESS"});
         }catch(e){
             console.log(e);
+            dispatch({type:"CREATE_STREAM_FAILED"});
         }
     }
 }
@@ -287,9 +288,10 @@ export const createStreamFA12 = (formData) => {
             const batchOp = await batch.send();
             console.log('Operation hash:', batchOp);
             await batchOp.confirmation();
-            window.location.replace('/pay')
+            dispatch({type:"CREATE_STREAM_SUCCESS"});
         }catch(e){
             console.log(e);
+            dispatch({type:"CREATE_STREAM_FAILED"});
         }
     }
 }

@@ -24,7 +24,6 @@ export const Dashboard = ({ streams }) => {
                     className="col main-section container-content"
                     align="center"
                 >
-                    {/* <div className="img-div"><img src={Illus} className="dash-img" /></div> */}
                     <div className="dash-main">
                         <p className="sign-in-text">
                             Sign in with your tezos account to view incoming
@@ -46,10 +45,10 @@ export const Dashboard = ({ streams }) => {
                     {streams === null ? (
                         <div className="col container-content" align="center">
                             <div style={{ padding: "10px" }}>
-                                <SkeletonTheme color="#202020" highlightColor="#444">
+                                <SkeletonTheme color="#000000" highlightColor="#8D8DDB">
                                     <div
                                         style={{
-                                            width: "300px",
+                                            width: "100px",
                                             marginRight: "auto",
                                         }}
                                     >
@@ -58,7 +57,7 @@ export const Dashboard = ({ streams }) => {
                                     <Skeleton count={3} />
                                     <div
                                         style={{
-                                            width: "500px",
+                                            width: "300px",
                                             marginRight: "auto",
                                         }}
                                     >

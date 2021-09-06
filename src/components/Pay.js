@@ -9,9 +9,9 @@ import "../css/pay.css";
 
 const getIcon = (i) => {
     if(i===1){
-        return <span className="token-tag">FA 1.2</span>
+        return <span className="token-tag-FA12">FA 1.2</span>
     }else if(i===2){
-        return <span className="token-tag">FA 2</span>
+        return <span className="token-tag-FA2">FA 2</span>
     }else{
         return <img src={Tezos} className="tezos-icon" />;
     }
@@ -39,10 +39,10 @@ const Pay = ({ senderStreams }) => {
                         {senderStreams === null ? (
                             <div className="col container-content" align="center">
                                 <div style={{ padding: "10px" }}>
-                                    <SkeletonTheme color="#fff" highlightColor="#8D8DDB">
+                                    <SkeletonTheme color="#000000" highlightColor="#8D8DDB">
                                         <div
                                             style={{
-                                                width: "300px",
+                                                width: "100px",
                                                 marginRight: "auto",
                                             }}
                                         >
@@ -51,7 +51,7 @@ const Pay = ({ senderStreams }) => {
                                         <Skeleton count={3} />
                                         <div
                                             style={{
-                                                width: "500px",
+                                                width: "300px",
                                                 marginRight: "auto",
                                             }}
                                         >

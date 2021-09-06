@@ -231,8 +231,20 @@ table{
     margin-right: 7px;
 }
 
-.token-tag{
-    background-color: #437eef;
+.token-tag-FA12{
+    background-color: #009432;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: smaller;
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+}
+
+.token-tag-FA2{
+    background-color: #FFC312;
+    color: black;
     border-radius: 5px;
     padding: 5px;
     font-size: smaller;

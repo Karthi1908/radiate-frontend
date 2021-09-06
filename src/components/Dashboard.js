@@ -12,9 +12,9 @@ import Tezos from "../assets/tezos-icon.png";
 
 const getIcon = (i) => {
     if(i===1){
-        return <span className="token-tag">FA 1.2</span>
+        return <span className="token-tag-FA12">FA 1.2</span>
     }else if(i===2){
-        return <span className="token-tag">FA 2</span>
+        return <span className="token-tag-FA2">FA 2</span>
     }else{
         return <img src={Tezos} className="tezos-icon" />;
     }

@@ -10,6 +10,16 @@ import Illus from "../assets/illus.png";
 import Clock from "../assets/clock.png";
 import Tezos from "../assets/tezos-icon.png";
 
+const getIcon = (i) => {
+    if(i===1){
+        return <span className="token-tag">FA 1.2</span>
+    }else if(i===2){
+        return <span className="token-tag">FA 2</span>
+    }else{
+        return <img src={Tezos} className="tezos-icon" />;
+    }
+}
+
 export const Dashboard = ({ streams }) => {
     const selector = useSelector((state) => {
         return state.walletConfig.user;
@@ -103,7 +113,7 @@ export const Dashboard = ({ streams }) => {
                                                                 <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
                                                             }
                                                             <td className=" dash-table-body"><a className="sender" target="_blank" href={"https://granadanet.tzkt.io/" + stream.sender + "/operations"}>{stream.sender}</a></td>
-                                                            <td className="dash-table-body"><img src={Tezos} className="tezos-icon" />{stream.remainingBalance / 1000000}</td>
+                                                            <td className="dash-table-body">{getIcon(stream.token)}{stream.remainingBalance / 1000000}</td>
                                                             <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString() + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
                                                             <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>
                                                         </tr>

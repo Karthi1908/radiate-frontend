@@ -230,3 +230,13 @@ table{
     height: 30px;
     margin-right: 7px;
 }
+
+.token-tag{
+    background-color: #437eef;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: smaller;
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+}

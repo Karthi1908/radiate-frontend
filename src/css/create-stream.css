@@ -132,6 +132,10 @@ option{
     background-color: #1d1736;
 }
 
+.react-datetime-picker__inputGroup__input{
+    color: white;
+}
+
 .token-icon{
     width: 30px;
     height: 30px;

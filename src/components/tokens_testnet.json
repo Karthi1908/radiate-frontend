@@ -1,7 +1,9 @@
 [   
     {
         "symbol": "XTZ",
+        "contract_address": "tez",
         "token_standard": "Tez",
+        "token_id": -1,
         "uri" : "https://cloudflare-ipfs.com/ipfs/QmPE1mWzasQh9CCvtXSDhv1HoBtsDqWNcX3LxKhjHHEAvM",
         "decimal" : 6
     },
@@ -9,6 +11,7 @@
         "symbol": "kUSD",
         "contract_address": "KT1Gg6pZwe7117HL5MLp3nhYB47QCAQvxwWi",
         "token_standard": "FA1.2",
+        "token_id": -1,
         "uri" : "https://kolibri-data.s3.amazonaws.com/logo.png",
         "decimal" : 18
     },
@@ -40,6 +43,7 @@
         "symbol": "PLENTY",
         "contract_address": "KT1KjfegZEHHHvydpyM4epZxvrC8RYHaR1ns",
         "token_standard": "FA1.2",
+        "token_id": -1,
         "uri" : "https://raw.githubusercontent.com/Plenty-DeFi/Plenty-Logo/main/PlentyTokenIcon.png",
         "decimal" : 18
     },

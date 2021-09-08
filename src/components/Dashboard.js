@@ -10,6 +10,9 @@ import Illus from "../assets/illus.png";
 import Clock from "../assets/clock.png";
 import Tezos from "../assets/tezos-icon.png";
 
+import tokenData from './tokens_testnet.json'
+
+
 const getIcon = (i) => {
     if(i===1){
         return <span className="token-tag-FA12">FA 1.2</span>
@@ -106,6 +109,8 @@ export const Dashboard = ({ streams }) => {
                                                 </thead>
                                                 <tbody className="dash-body">
                                                     {streams.map((stream, i) => {
+                                                        const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
+                                                        console.log(i, stream, tokenInfo);
                                                         return <tr className="dash-row">
                                                             {(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ?
                                                                 <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td> :

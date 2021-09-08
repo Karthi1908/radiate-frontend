@@ -132,11 +132,14 @@ const CreateStream = () => {
                                     <div className="col-1">
                                         <img src={tokenInfo.uri} className="form-token-img" alt="token-img" />
                                     </div>
-                                    <div className="col-10 text-col">
+                                    <div className="col-5 text-col">
                                         <input type="text" readOnly={true} className="form-control" id="token" value={tokenInfo.symbol} placeholder="Select token"/>
                                     </div>
                                     <div className="col-1 arrow-col">
                                         <img src={Arrow} className="arrow" alt="arrow" />
+                                    </div>
+                                    <div className="col-5 airdrop">
+                                        <button className="btn btn-airdrop">Airdrop</button>
                                     </div>
                                 </div>
                             </div>

@@ -11,6 +11,7 @@ import Tezos from '../assets/tezos-icon.png';
 import '../css/stream-details.css';
 import Close from '../assets/close.png'
 import Back from '../assets/back.png'
+import tokenData from './tokens_testnet.json'
 
 
 const StreamDetails = () => {
@@ -42,8 +43,10 @@ const StreamDetails = () => {
                 setStream(e[0]);
                 
                 if(e[0].token!==0){
-                    multiplier = 1;
+                    const tokenInfo = tokenData.filter((data) => data.contract_address === e[0].contractAddress && data.token_id === e[0].tokenId)[0]
+                    multiplier = Math.pow(10,tokenInfo.decimal);
                 }
+                console.log(multiplier);
                 if (new Date().getTime() > Date.parse(e[0].stopTime) || !e[0].isActive) {
                     let amount_now = parseFloat((((e[0].remainingBalance) / multiplier))).toFixed(6);
                     console.log("Stream ended");

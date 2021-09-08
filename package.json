@@ -11,7 +11,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^5.1.0",
-    "radiate-finance-sdk": "^0.0.1",
+    "radiate-finance-sdk": "^0.0.2",
     "react": "^17.0.2",
     "react-circular-progressbar": "^2.0.4",
     "react-datetime-picker": "^3.4.0",

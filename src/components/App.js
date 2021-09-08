@@ -49,10 +49,11 @@ const App = () => {
         
                 }).get({...everything}).subscribe(e => {
                     setStream(e);
+                    console.log("find")
                     console.log(e)
                 });
-    
             }
+
         })();
     }, [selector.user.userAddress]);
 

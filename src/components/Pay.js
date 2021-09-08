@@ -6,6 +6,8 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Tezos from "../assets/tezos-icon.png";
 import "../css/pay.css";
 
+import tokenData from './tokens_testnet.json'
+
 
 const getIcon = (i) => {
     if(i===1){
@@ -98,15 +100,20 @@ const Pay = ({ senderStreams }) => {
                                                             </tr>
                                                         </thead>
                                                         <tbody className="dash-body">
-                                                            {senderStreams.map((stream) => {
+                                                            {senderStreams.map((stream, i) => {
                                                                 console.log(stream);
-                                                                return <tr className="dash-row">
+                                                                const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
+
+                                                                return <tr className="dash-row" key={i}>
                                                                     {(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ?
                                                                         <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td> :
-                                                                        <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
+                                                                        <td><Link to={"/stream/" + stream.streamId} className="cancelled">Ended</Link></td>
                                                                     }
                                                                     <td className="receiver"><a className="receiver" target="_blank" href={"https://granadanet.tzkt.io/" + stream.receiver + "/operations"}>{stream.receiver}</a></td>
-                                                                    <td className="dash-table-body">{getIcon(stream.token)}{stream.deposit / 1000000}</td>
+                                                                    {(tokenInfo)? 
+                                                                        <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" alt="icon"/>{stream.deposit / (10**tokenInfo.decimal)}</td>:
+                                                                        <td className="dash-table-body">{getIcon(stream.token)}{stream.deposit / 1000000}</td>
+                                                                    }
                                                                     <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString() + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
                                                                     <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>
                                                                 </tr>

@@ -110,14 +110,19 @@ export const Dashboard = ({ streams }) => {
                                                 <tbody className="dash-body">
                                                     {streams.map((stream, i) => {
                                                         const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
+                                                        console.log("token-info")
                                                         console.log(i, stream, tokenInfo);
-                                                        return <tr className="dash-row">
+                                                        return <tr className="dash-row" key={i}>
                                                             {(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ?
                                                                 <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td> :
-                                                                <td><Link to={"/stream/" + stream.streamId} className="cancelled">Cancelled</Link></td>
+                                                                <td><Link to={"/stream/" + stream.streamId} className="cancelled">Ended</Link></td>
                                                             }
                                                             <td className=" dash-table-body"><a className="sender" target="_blank" href={"https://granadanet.tzkt.io/" + stream.sender + "/operations"}>{stream.sender}</a></td>
-                                                            <td className="dash-table-body">{getIcon(stream.token)}{stream.remainingBalance / 1000000}</td>
+                                                            {(tokenInfo)? 
+                                                                <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" alt="icon"/>{stream.remainingBalance / (10**tokenInfo.decimal)}</td>:
+                                                                <td className="dash-table-body">{getIcon(stream.token)}{stream.remainingBalance / 1000000}</td>
+                                                            }
+                                                            
                                                             <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString() + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
                                                             <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>
                                                         </tr>

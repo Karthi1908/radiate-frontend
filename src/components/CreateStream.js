@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 
 import StreamIllustration from '../assets/stream.png'
 import CreateStreamIcon from '../assets/tel-stream.png'
-
-import tokenData from './tokens.json'
+import Tezos from '../assets/tezos-icon.png';
+import Close from '../assets/close.png'
+import Arrow from '../assets/arrow.png'
+import tokenData from './tokens_testnet.json'
 
 const alerts = (i) => {
     if(i===1){
@@ -30,17 +32,17 @@ const CreateStream = () => {
     const selector = useSelector(state => {return state.walletConfig.user});
     const statusSelector = useSelector(state=>state.createStreamStatus);
     const dispatch = useDispatch();
-    const [token, setToken] = useState("Tez");
     const [amount, setAmount] = useState("");
     const [receiver, setReceiver] = useState("");
     const [duration, setDuration] = useState("");
-    const [contractAddress, setContractAddress] = useState("");
-    const [tokenID, setTokenID] = useState("");
     const [loader, setLoader] = useState(false);
     const [status, setStatus] = useState(0);
 
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
+
+    const [tokenInfo, setTokenInfo] = useState(tokenData[0])
+
 
     useEffect(()=>{
         dispatch({type:"INITIAL_STATUS"});
@@ -58,32 +60,51 @@ const CreateStream = () => {
         setTimeout(()=>{setStatus(0);dispatch({type:"INITIAL_STATUS"});}, 3000);
     },[statusSelector]);
 
+
+    const handleTokenClick = (e) => {
+        const key  = e.target.getAttribute('data-key')
+        if(key != null){
+            setTokenInfo(tokenData[key])
+            const modal = document.getElementById('tokenModal')
+
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            modal.setAttribute('style', 'display: none');
+
+            // get modal backdrop
+            const modalBackdrops = document.getElementsByClassName('modal-backdrop');
+
+            // remove opened modal backdrop
+            document.body.removeChild(modalBackdrops[0]);
+        }
+    }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         setLoader(true);
         // console.log('step2');
-        if(token === "FA12"){
+        if(tokenInfo.token_standard === "FA1.2"){
             dispatch(createStreamFA12({
-                amount : amount,
+                amount : amount*(10**tokenInfo.decimal),
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
                 stopTime: (endTime.getTime())/1000,
                 duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
-                contractAddress: contractAddress
+                contractAddress: tokenInfo.contract_address
             }))
-        }else if(token === "FA2"){
+        }else if(tokenInfo.token_standard === "FA2"){
             dispatch(createStreamFA2({
-                amount : amount,
+                amount : amount*(10**tokenInfo.decimal),
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
                 stopTime: (endTime.getTime())/1000,
                 duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
-                contractAddress: contractAddress,
-                tokenID: tokenID
+                contractAddress: tokenInfo.contract_address,
+                tokenID: tokenInfo.token_id
             }))
         }else {
             dispatch(createStream({
-                amount : amount*1000000,
+                amount : amount*(10**tokenInfo.decimal),
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
                 token: "Tez",
@@ -93,12 +114,8 @@ const CreateStream = () => {
         }
         setAmount("");
         setReceiver("");
-        setToken("");
         setStartTime(new Date());
         setEndTime(new Date());
-        setContractAddress("");
-        setTokenID("");
-        // {console.log("step3")}
     }
 
     return(
@@ -111,6 +128,20 @@ const CreateStream = () => {
                         <form className="form">
                             <div className="form-group">
                                 <label className="label">Token</label>
+                                <div className="row form-first-item" data-bs-toggle="modal" data-bs-target="#tokenModal">
+                                    <div className="col-1">
+                                        <img src={tokenInfo.uri} className="form-token-img" alt="token-img" />
+                                    </div>
+                                    <div className="col-10 text-col">
+                                        <input type="text" readOnly={true} className="form-control" id="token" value={tokenInfo.symbol} placeholder="Select token"/>
+                                    </div>
+                                    <div className="col-1 arrow-col">
+                                        <img src={Arrow} className="arrow" alt="arrow" />
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <div className="form-group">
+                                <label className="label">Token</label>
                                 <select className="form-select form-select-lg" id="token" onChange={(e)=>{setToken(e.target.value)}}>
                                     <option value="Tez">Tez</option>
                                     <option value="FA12">FA1.2</option>
@@ -119,8 +150,8 @@ const CreateStream = () => {
                                         return <option title="Not available on testnet">{data.symbol}</option>
                                     })}
                                 </select>
-                            </div>
-                            {(token==="FA12" || token==="FA2")?(
+                            </div> */}
+                            {/* {(token==="FA12" || token==="FA2")?(
                                 <div className="form-group">
                                     <label className="label">Contract Address</label>
                                     <input type="text" className="form-control" id="amount" value={contractAddress} onChange={(e)=>{setContractAddress(e.target.value)}}   placeholder="Enter token Address"/>
@@ -131,9 +162,9 @@ const CreateStream = () => {
                                     <label className="label">Token ID</label>
                                     <input type="text" className="form-control" id="amount" value={tokenID} onChange={(e)=>{setTokenID(e.target.value)}}   placeholder="Enter token ID"/>
                                 </div>
-                            ):null}
+                            ):null} */}
                             <div className="form-group">
-                                <label className="label">{`Amount ${token==="Tez"?"(in Tez)":""}`}</label>
+                                <label className="label">{`Amount in ${tokenInfo.symbol}`}</label>
                                 <input type="text" className="form-control" id="amount" value={amount} onChange={(e)=>{setAmount(e.target.value)}}   placeholder="How much do you want to stream?"/>
                             </div>
                             <div className="form-group">
@@ -164,8 +195,28 @@ const CreateStream = () => {
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="tokenModal" tabindex="-1" aria-labelledby="tokenModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tokenModalLabel">Select tokens</h5>
+                        <a data-bs-dismiss="modal"><img src={Close} className="close" alt="close" /></a>
+                    </div>
+                    <div class="modal-body">
+                        {tokenData.map((data, i) => {
+                            return <div className="modal-flex-create" key={i} data-key={i} onClick={handleTokenClick}>
+                                <img src={data.uri} className="token-icon" alt="token-icon" id="icon"/>
+                                <p className="create-modal-text" id="symbol">{data.symbol}</p>
+                            </div>
+                        })}
+                    </div>
+                </div>
+            </div>
+        </div>
         </>
     );
 }
+
+
 
 export default CreateStream

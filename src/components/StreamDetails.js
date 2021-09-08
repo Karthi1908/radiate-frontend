@@ -22,6 +22,7 @@ const StreamDetails = () => {
     const selector = useSelector(state => state.walletConfig.user);
     const [withdrawAmount, setWithdrawAmount] = useState(0);
     const [percentage, setPercentage] = useState(0);
+    const [streamedProgress, setStreamedProgress] = useState(0);
 
   
     let multiplier = 1000000;
@@ -46,14 +47,17 @@ const StreamDetails = () => {
                 if (new Date().getTime() > Date.parse(e[0].stopTime) || !e[0].isActive) {
                     let amount_now = parseFloat((((e[0].remainingBalance) / multiplier))).toFixed(6);
                     console.log("Stream ended");
-                    setFlow(`${amount_now} tez`);
+                    setFlow(`${amount_now}`);
+                    setStreamedProgress(100);
                 }
                 setInterval(() => {
                     let timeNow = (new Date()).getTime() / 1000;
                     let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / multiplier)).toFixed(6);
                     if (parseFloat(amount_now) > 0 && e[0].isActive && timeNow*1000 < Date.parse(e[0].stopTime)) {
-                        setFlow(`${amount_now} tez`);
+                        setFlow(`${amount_now}`);
+                        setStreamedProgress(100*(((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) / (((Date.parse(e[0].stopTime)) / 1000 - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond)))
                     }
+                    
                     const total = e[0].remainingBalance/multiplier;
                     setPercentage((amount_now/total)*100);
                 }, 500);
@@ -111,7 +115,7 @@ const StreamDetails = () => {
                             <div className="">
                                 <div className="card-body">
                                     <div className="row justify-content-center">
-                                        <div className="circle-progress-bar" style={{width:450, height:450}}>
+                                        <div className="circle-progress-bar" style={{width:400, height:400}}>
                                             <CircularProgressbar
                                                 value={percentage}
                                                 text={`${flow}`}
@@ -129,6 +133,23 @@ const StreamDetails = () => {
                                         </div>
                                     </div>
                                     <p className="card-text text-center card-status">{(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ? "Streaming" : "Ended"}</p>
+                                </div>
+                            </div>
+                            <div className="detail-stream-amount">
+                                <div className="row justify-content-md-center" style={{margin:"0 200px"}}>
+                                    <div className="col">
+                                        <span className="">Streamed: <br/></span>
+                                        <div class="progress" style={{width:200, height:10, transform:""}}>
+                                           
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width:`${streamedProgress}%`,}} ></div>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <span className="">Withdrawn: <br/></span>
+                                        <div class="progress" style={{width:200, height:10}}>
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width:`${100*((stream.deposit - stream.remainingBalance)/stream.deposit)}%`,}} ></div>
+                                        </div>
+                                    </div>  
                                 </div>
                             </div>
                             <div className="detail-time-flex">

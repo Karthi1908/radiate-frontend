@@ -38,7 +38,7 @@ const App = () => {
         
                 }).get({...everything}).subscribe(e => {
                     setSenderStream(e);
-                    // console.log(e)
+                    console.log(e)
                 });
             }
             

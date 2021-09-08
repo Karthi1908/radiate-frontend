@@ -43,7 +43,7 @@ export const connectWallet = () => {
 
             if(!walletConfig.beacon.beaconConnection){
                 wallet = new BeaconWallet({
-                    name: "Template",
+                    name: "Radiate Finance",
                     preferredNetwork: NetworkType.GRANADANET,
                     disableDefaultEvents: true, // Disable all events / UI. This also disables the pairing alert.
                     eventHandlers: {

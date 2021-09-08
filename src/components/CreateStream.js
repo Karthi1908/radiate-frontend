@@ -62,18 +62,18 @@ const CreateStream = () => {
         e.preventDefault();
         setLoader(true);
         // console.log('step2');
-        if(token === "FA12"){
+        if(token.split(" ").length>1 && token.split(" ")[1]==="FA1.2"){
             dispatch(createStreamFA12({
-                amount : amount,
+                amount : amount * Math.pow(10, parseInt(token.split(" ")[2])),
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
                 stopTime: (endTime.getTime())/1000,
                 duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
                 contractAddress: contractAddress
             }))
-        }else if(token === "FA2"){
+        }else if(token.split(" ").length>1 && token.split(" ")[1]==="FA2"){
             dispatch(createStreamFA2({
-                amount : amount,
+                amount : amount * Math.pow(10, parseInt(token.split(" ")[2])),
                 receiver: receiver,
                 startTime: (startTime.getTime())/1000,
                 stopTime: (endTime.getTime())/1000,
@@ -113,10 +113,10 @@ const CreateStream = () => {
                                 <label className="label">Token</label>
                                 <select className="form-select form-select-lg" id="token" onChange={(e)=>{setToken(e.target.value)}}>
                                     <option value="Tez">Tez</option>
-                                    <option value="FA12">FA1.2</option>
-                                    <option value="FA2">FA2</option>
+                                    {/* <option value="FA12">FA1.2</option>
+                                    <option value="FA2">FA2</option> */}
                                     {tokenData.map((data) => {
-                                        return <option title="Not available on testnet">{data.symbol}</option>
+                                        return <option title="Not available on testnet" value={data.symbol + " " + data.token_standard + " " + data.decimal}>{data.symbol}</option>
                                     })}
                                 </select>
                             </div>

@@ -3,7 +3,8 @@ import { BeaconWallet } from "@taquito/beacon-wallet";
 import {
   NetworkType,
   BeaconEvent,
-  defaultEventCallbacks
+  defaultEventCallbacks,
+  ColorMode
 } from "@airgap/beacon-sdk";
 import config from '../config';
 
@@ -45,7 +46,8 @@ export const connectWallet = () => {
                 wallet = new BeaconWallet({
                     name: "Radiate Finance",
                     preferredNetwork: NetworkType.GRANADANET,
-                    disableDefaultEvents: true, // Disable all events / UI. This also disables the pairing alert.
+                    colorMode: ColorMode.LIGHT,
+                    disableDefaultEvents: false, // Disable all events / UI. This also disables the pairing alert.
                     eventHandlers: {
                     // To keep the pairing alert, we have to add the following default event handlers back
                     [BeaconEvent.PAIR_INIT]: {
@@ -123,59 +125,6 @@ export const disconnectWallet = () => {
         }
       };
 }
-
-// export const fetchContractData = () => {
-//     return async (dispatch, getState) => {
-//         try {
-//             await dispatch(tezosInstance());
-//             await dispatch(contractInstanceAction());
-//             const { contractInstance } = getState();
-//             var contract = contractInstance.contract;
-
-//             const storage = await contract.storage();
-//             dispatch({type:"SET_VALUE", payload: storage.toNumber()});
-//         }catch(e){
-//             //dispatch
-//             console.log(e);
-//         }
-//     }
-// }
-
-// export const incrementData = () => {
-//     return async (dispatch, getState) => {
-//         try{
-//             //update balance if necessary
-//             await dispatch(contractInstanceAction());
-//             const { contractInstance } = getState();
-//             var contract = contractInstance.contract;
-
-//             const op = await contract.methods.increment(1).send();
-//             await op.confirmation();
-//             const newStorage = await contract.storage();
-//             dispatch({type:"SET_VALUE", payload: newStorage.toNumber()});
-//         }catch(e){
-//             console.log(e);
-//         }
-//     }
-// }
-
-
-// export const decrementData = () => {
-//     return async (dispatch, getState) => {
-//         try{
-//             await dispatch(contractInstanceAction());
-//             const { contractInstance } = getState();
-//             var contract = contractInstance.contract;
-
-//             const op = await contract.methods.decrement(1).send();
-//             await op.confirmation();
-//             const newStorage = await contract.storage();
-//             dispatch({type:"SET_VALUE", payload: newStorage.toNumber()});
-//         }catch(e){
-//             console.log(e);
-//         }
-//     }
-// }
 
 export const createStream = (formData) => {
     return async (dispatch, getState) => {
@@ -321,6 +270,36 @@ export const cancelStream = (cancelParams) => {
                 cancelParams.streamId
             ).send();
             await op.confirmation();
+        }catch(e){
+            console.log(e);
+        }
+    }
+}
+
+export const AirdropFA12 = (AirdropParams) => {
+    return async (dispatch, getState) => {
+        try{
+            await dispatch(tezosInstance());
+            const {walletConfig } = getState();
+            const contract = await walletConfig.tezos.tezosToolkit.wallet.at(AirdropParams.contractAddress);
+
+            contract.methods.mint(AirdropParams.address, AirdropParams.value).send()
+
+        }catch(e){
+            console.log(e);
+        }
+    }
+}
+
+export const AirdropFA2 = (AirdropParams) => {
+    return async (dispatch, getState) => {
+        try{
+            console.log(AirdropParams)
+            await dispatch(tezosInstance());
+            const {walletConfig } = getState();
+            const contract = await walletConfig.tezos.tezosToolkit.wallet.at(AirdropParams.contractAddress);
+
+            contract.methods.mint_more(AirdropParams.address, AirdropParams.amount, AirdropParams.tokenId).send()
         }catch(e){
             console.log(e);
         }

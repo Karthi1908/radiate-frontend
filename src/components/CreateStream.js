@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { connectWallet, disconnectWallet, createStream, createStreamFA2, createStreamFA12} from '../actions';
+import { connectWallet, disconnectWallet, createStream, createStreamFA2, createStreamFA12, AirdropFA2, AirdropFA12} from '../actions';
 import DateTimePicker from 'react-datetime-picker';
 import '../css/create-stream.css'
 import { Link } from 'react-router-dom';
@@ -41,7 +41,8 @@ const CreateStream = () => {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
-    const [tokenInfo, setTokenInfo] = useState(tokenData[0])
+    const [tokenInfo, setTokenInfo] = useState(tokenData[1]);
+    const [disableAirdrop, setDisableAirdrop] = useState(false);
 
 
     useEffect(()=>{
@@ -76,6 +77,32 @@ const CreateStream = () => {
 
             // remove opened modal backdrop
             document.body.removeChild(modalBackdrops[0]);
+
+            if(tokenData[key].token_standard === "Tez"){
+                setDisableAirdrop(true)
+            }else{
+                setDisableAirdrop(false)
+            }
+        }
+    }
+
+    const handleAirdropClick = () => {
+        if(tokenInfo.token_standard != "Tez"){
+            if(tokenInfo.token_standard === "FA1.2"){
+                dispatch(AirdropFA12({
+                    address: selector.userAddress,
+                    value: 1000*(10**tokenInfo.decimal),
+                    contractAddress: tokenInfo.contract_address
+                }))
+            }
+            else if(tokenInfo.token_standard === "FA2"){
+                dispatch(AirdropFA2({
+                    address: selector.userAddress,
+                    amount: 1000*(10**tokenInfo.decimal),
+                    tokenId: parseInt(tokenInfo.token_id),
+                    contractAddress: tokenInfo.contract_address
+                }))
+            }
         }
     }
 
@@ -128,18 +155,23 @@ const CreateStream = () => {
                         <form className="form">
                             <div className="form-group">
                                 <label className="label">Token</label>
-                                <div className="row form-first-item" data-bs-toggle="modal" data-bs-target="#tokenModal">
-                                    <div className="col-1">
-                                        <img src={tokenInfo.uri} className="form-token-img" alt="token-img" />
+                                <div className="main-flex">
+                                    <div className="left-flex form-first-item"  data-bs-toggle="modal" data-bs-target="#tokenModal">
+                                        <div className="img-col-create">
+                                            <img src={tokenInfo.uri} className="form-token-img" alt="token-img" />
+                                        </div>
+                                        <div className="text-col">
+                                            <input type="text" readOnly={true} className="form-control" id="token" value={tokenInfo.symbol} placeholder="Select token"/>
+                                        </div>
+                                        <div className="arrow-col">
+                                            <img src={Arrow} className="arrow" alt="arrow" />
+                                        </div>
                                     </div>
-                                    <div className="col-5 text-col">
-                                        <input type="text" readOnly={true} className="form-control" id="token" value={tokenInfo.symbol} placeholder="Select token"/>
-                                    </div>
-                                    <div className="col-1 arrow-col">
-                                        <img src={Arrow} className="arrow" alt="arrow" />
-                                    </div>
-                                    <div className="col-5 airdrop">
-                                        <button className="btn btn-airdrop">Airdrop</button>
+                                    <div className="right-flex  airdrop">
+                                        {(disableAirdrop)? 
+                                            <button type="button" className="btn btn-airdrop" onClick={handleAirdropClick} hidden={true} disabled={true}>Airdrop</button>:
+                                            <button type="button" className="btn btn-airdrop" onClick={handleAirdropClick} data-bs-toggle="tooltip" data-bs-placement="top" title="Get some tokens">Airdrop</button>
+                                        }
                                     </div>
                                 </div>
                             </div>

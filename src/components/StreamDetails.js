@@ -153,7 +153,7 @@ const StreamDetails = () => {
                                     <p className="card-text text-center card-status">{(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ? "Streaming" : "Ended"}</p>
                                 </div>
                             </div>
-                            <div className="detail-stream-amount">
+                            {/* <div className="detail-stream-amount">
                                 <div className="row justify-content-md-center" style={{margin:"0 200px"}}>
                                     <div className="col detail-main-div mx-auto">
                                         <div className="col">
@@ -170,7 +170,7 @@ const StreamDetails = () => {
                                         </div> 
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="detail-time-flex">
                                 <div className="detail-start-time">
                                     <span className="span-time">Started on: </span>{(new Date(Date.parse(stream.startTime)).toDateString()) + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}

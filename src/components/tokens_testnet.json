@@ -1,0 +1,86 @@
+[   
+    {
+        "symbol": "XTZ",
+        "token_standard": "Tez",
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmPE1mWzasQh9CCvtXSDhv1HoBtsDqWNcX3LxKhjHHEAvM",
+        "decimal" : 6
+    },
+    {
+        "symbol": "kUSD",
+        "contract_address": "KT1Gg6pZwe7117HL5MLp3nhYB47QCAQvxwWi",
+        "token_standard": "FA1.2",
+        "uri" : "https://kolibri-data.s3.amazonaws.com/logo.png",
+        "decimal" : 18
+    },
+    {
+        "symbol": "CRUNCH",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 4,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/bafybeienhhbxz53n3gtg7stjou2zs3lmhupahwovv2kxwh5uass3bc5xzq",
+        "decimal" : 8
+    },
+    {
+        "symbol": "wBUSD",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 7,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmRB63vb8ThpmxHKF4An3XD8unHyCUuLYm5bZNhXwU4gAZ",
+        "decimal" : 18
+    },
+    {
+        "symbol": "wDAI",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 8,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmVov6RtfRNzuQGvGKmhnABUsfCiDKvn31amg8DUxzowtM",
+        "decimal" : 18
+    },
+    {
+        "symbol": "PLENTY",
+        "contract_address": "KT1KjfegZEHHHvydpyM4epZxvrC8RYHaR1ns",
+        "token_standard": "FA1.2",
+        "uri" : "https://raw.githubusercontent.com/Plenty-DeFi/Plenty-Logo/main/PlentyTokenIcon.png",
+        "decimal" : 18
+    },
+    {
+        "symbol": "KALAM",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 3,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/Qme9FX9M7o2PZt9h6rvkUbfXoLpQr1HsuMQi6sL5Y75g3A",
+        "decimal" : 10
+    },
+    {
+        "symbol": "uUSD",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 10,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmbvhanNCxydZEbGu1RdqkG3LcpNGv7XYsCHgzWBXnmxRd",
+        "decimal" : 12
+    },
+    {
+        "symbol": "GIF",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 9,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmQxoTVVuFS677TQJFdVh1PNRoBmVbvkwJSxe1xvf9cSqU",
+        "decimal" : 9
+    },
+    {
+        "symbol": "wUSDC",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 6,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmQfHU9mYLRDU4yh2ihm3zrvVFxDrLPiXNYtMovUQE2S2t",
+        "decimal" : 9
+    },
+    {
+        "symbol": "wUSDT",
+        "contract_address": "KT1BFTiTGTETKogFs9Bh1jSb3bhVLpfDSb6w",
+        "token_standard": "FA2",
+        "token_id": 5,
+        "uri" : "https://cloudflare-ipfs.com/ipfs/QmVbiHa37pe2U9FfXBYfvrLNpb38rbXwaN19HwZD2speFA",
+        "decimal" : 9
+    }
+]

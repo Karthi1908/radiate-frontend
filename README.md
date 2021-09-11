@@ -15,3 +15,7 @@ Use our DApp to stream money and get paid every second.
 - Pay as you go
 - Cancel anytime
 - Get rewards for streaming
+
+## How streaming works
+
+![stream drawio](https://user-images.githubusercontent.com/57187745/132946116-b65e9671-da30-4dbc-96ac-1ecff4eb4954.png)

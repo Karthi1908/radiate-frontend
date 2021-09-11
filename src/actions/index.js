@@ -85,6 +85,7 @@ export const createStream = (formData, Tezos) => {
             //
             console.log(op)
             await op.confirmation();
+            console.log(op);
             dispatch({type:"CREATE_STREAM_SUCCESS"});
         }catch(e){
             console.log(e);

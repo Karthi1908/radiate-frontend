@@ -52,7 +52,7 @@ const StreamDetails = ({Tezos, wallet}) => {
                 }
 
                 if (!e[0].isActive) {
-                    setFlow(`Canceled`);
+                    setFlow(`Cancelled`);
                     setStreamedProgress(100);
                 }else if(new Date().getTime() > Date.parse(e[0].stopTime)){
                     let amount_now = parseFloat((((e[0].remainingBalance) / multiplier))).toFixed(6);
@@ -108,6 +108,10 @@ const StreamDetails = ({Tezos, wallet}) => {
         );
     }
 
+    const isoTimeToDisplayTime = (isoTime) => {
+        return (new Date(Date.parse(isoTime)).toDateString() + " " + new Date(Date.parse(isoTime)).toTimeString().split(" GMT")[0])
+    }
+
     return (
         <div className="container container-content-details">
             {(stream === undefined) ? (
@@ -147,7 +151,7 @@ const StreamDetails = ({Tezos, wallet}) => {
                                                     if(!tokenInfo){tokenInfo = {}}
                                                     return tokenInfo.uri
                                                 })()}
-                                                alt="icon"
+                                                alt=""
                                                 />
                                                 <div style={{ fontSize: 30, marginTop: 5 }}>
                                                     {flow}
@@ -178,18 +182,42 @@ const StreamDetails = ({Tezos, wallet}) => {
                             </div> */}
                             <div className="detail-time-flex">
                                 <div className="detail-start-time">
-                                    <span className="span-time">Started on: </span>{(new Date(Date.parse(stream.startTime)).toDateString()) + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}
+                                    {(() => {
+                                        if((Date.now() > (new Date(stream.stopTime)).getTime())){
+                                            return <div className=""><span className="span-time">Streamed: </span>{(((stream.ratePerSecond * (((new Date(stream.stopTime)).getTime()) - (new Date(stream.startTime)).getTime()))/1000)/(10**streamData.decimal)).toFixed(6)} {streamData.symbol}</div>
+                                        }else if(Date.now() > (new Date(stream.startTime)).getTime()){
+                                            return <div className=""><span className="span-time">Streamed: </span>{(stream.ratePerSecond * (((Date.now() - (new Date(stream.startTime)).getTime()))/1000)/(10**streamData.decimal)).toFixed(6)} {streamData.symbol}</div>
+                                        }else{
+                                            return <div className=""><span className="span-time">Streamed: </span>0 {streamData.symbol}</div>
+                                        }
+                                    })()}
                                 </div>
                                 <div className="detail-stop-time">
-                                    <span className="span-time">Will End on: </span>{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}
+                                    <span className="span-time">Withdrawn: </span>{(stream.deposit)?
+                                    (stream.deposit - stream.remainingBalance)/10**streamData.decimal
+                                    : 0} {streamData.symbol}
                                 </div>
                             </div>
                             <div className="detail-time-flex">
-                                <div className="detail-start-time">
-                                    <span className="span-time">Streamed: </span>{((stream.ratePerSecond * (Date.now() - (new Date(stream.startTime)).getTime())/1000)/(10**streamData.decimal)).toFixed(6)} {streamData.symbol}
-                                </div>
                                 <div className="detail-stop-time">
-                                    <span className="span-time">Withdrawn: </span>{(stream.deposit - stream.remainingBalance)/10**streamData.decimal} {streamData.symbol}
+                                    {(() => {
+                                        if(stream.startTime || stream.stopTime){
+                                            if(Date.now() < (new Date(stream.startTime)).getTime()){
+                                                return <div className=""><span className="span-time">Will start on: </span> {isoTimeToDisplayTime(stream.startTime)}</div>
+                                            }
+                                            else if(Date.now() < (new Date(stream.stopTime)).getTime()){
+                                                if(stream.isActive){
+                                                    return <div className=""><span className="span-time">Will End on: </span> {isoTimeToDisplayTime(stream.stopTime)}</div>
+                                                }else{
+                                                    return <div className="">Cancelled</div>
+                                                }
+                                            }else{
+                                                return <div className=""><span className="span-time">Ended on: </span> {isoTimeToDisplayTime(stream.stopTime)}</div>
+                                            }
+                                        }else{
+                                            <></>
+                                        }
+                                    })()}
                                 </div>
                             </div>
                         </div>

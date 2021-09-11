@@ -117,8 +117,8 @@ export const Dashboard = ({ streams, wallet, Tezos }) => {
                                                             }
                                                             <td className=" dash-table-body"><a className="sender" target="_blank" href={"https://granadanet.tzkt.io/" + stream.sender + "/operations"}>{stream.sender}</a></td>
                                                             {(tokenInfo)? 
-                                                                <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" alt="icon"/>{stream.remainingBalance / (10**tokenInfo.decimal)}</td>:
-                                                                <td className="dash-table-body">{getIcon(stream.token)}{stream.remainingBalance / 1000000}</td>
+                                                                <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" alt="icon"/>{(stream.remainingBalance / (10**tokenInfo.decimal)).toFixed(6)}</td>:
+                                                                <td className="dash-table-body">{getIcon(stream.token)}{(stream.remainingBalance / 1000000).toFixed(6)}</td>
                                                             }
                                                             
                                                             <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString() + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>

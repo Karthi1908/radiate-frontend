@@ -4,7 +4,7 @@ import { createClient, everything } from 'radiate-finance-sdk';
 import { withdraw, cancelStream, connectWallet } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 import Tezos from '../assets/tezos-icon.png';
@@ -24,6 +24,7 @@ const StreamDetails = ({Tezos, wallet}) => {
     const [withdrawAmount, setWithdrawAmount] = useState(0);
     const [percentage, setPercentage] = useState(0);
     const [streamedProgress, setStreamedProgress] = useState(0);
+
 
   
     let multiplier = 1000000;
@@ -119,9 +120,9 @@ const StreamDetails = ({Tezos, wallet}) => {
                                 <div className="card-body">
                                     <div className="row justify-content-center">
                                         <div className="circle-progress-bar" style={{width:400, height:400}}>
-                                            <CircularProgressbar
+                                            <CircularProgressbarWithChildren
                                                 value={percentage}
-                                                text={`${flow}`}
+                                                // text={`${flow}`}
                                                 styles={buildStyles({
                                                     rotation: 0.25,
                                                     strokeLinecap: 'round',
@@ -132,29 +133,44 @@ const StreamDetails = ({Tezos, wallet}) => {
                                                     trailColor: '#C3C5FD',
                                                     backgroundColor: '#3e98c7',
                                                 })}
-                                            />
+                                            >
+                                                <img
+                                                style={{ width: 60, marginTop: -5 }}
+                                                src={(() => {
+                                                    const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
+                                                    console.log("nfuiweh983h8gh398h")
+                                                    console.log(tokenInfo)
+                                                    return tokenInfo.uri
+                                                })()}
+                                                alt="icon"
+                                                />
+                                                <div style={{ fontSize: 30, marginTop: 5 }}>
+                                                    {flow}
+                                                </div>
+                                            </CircularProgressbarWithChildren>
                                         </div>
                                     </div>
                                     <p className="card-text text-center card-status">{(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ? "Streaming" : "Ended"}</p>
                                 </div>
                             </div>
-                            <div className="detail-stream-amount">
+                            {/* <div className="detail-stream-amount">
                                 <div className="row justify-content-md-center" style={{margin:"0 200px"}}>
-                                    <div className="col">
-                                        <span className="">Streamed: <br/></span>
-                                        <div class="progress" style={{width:200, height:10, transform:""}}>
-                                           
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width:`${streamedProgress}%`,}} ></div>
+                                    <div className="col detail-main-div mx-auto">
+                                        <div className="col">
+                                            <span className="">Streamed: <br/></span>
+                                            <div class="progress" style={{width:200, height:10, transform:""}}>
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width:`${streamedProgress}%`,}} ></div>
+                                            </div>
                                         </div>
+                                        <div className="col">
+                                            <span className="">Withdrawn: <br/></span>
+                                            <div class="progress" style={{width:200, height:10}}>
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width:`${100*((stream.deposit - stream.remainingBalance)/stream.deposit)}%`,}} ></div>
+                                            </div>
+                                        </div> 
                                     </div>
-                                    <div className="col">
-                                        <span className="">Withdrawn: <br/></span>
-                                        <div class="progress" style={{width:200, height:10}}>
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width:`${100*((stream.deposit - stream.remainingBalance)/stream.deposit)}%`,}} ></div>
-                                        </div>
-                                    </div>  
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="detail-time-flex">
                                 <div className="detail-start-time">
                                     <span className="span-time">Started on: </span>{(new Date(Date.parse(stream.startTime)).toDateString()) + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}

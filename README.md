@@ -1,10 +1,11 @@
 # Radiate Finance | App
 
-Use our DApp to stream money and get paid every second.
+Radiate Finance is a real-time money streaming protocol on Tezos, that enables continuous, autonomous and trustless payments. It allows constant flow of assets from sender to receiver every second. It makes transactions faster and ensures trustless environment.
 
-## Why stream money?
 
-![radiate_2 drawio](https://user-images.githubusercontent.com/57187745/132944795-64a2ae86-0fb6-45be-ae6b-3832968bdd95.png)
+<!-- ## Why stream money? -->
+
+<!-- ![radiate_2 drawio](https://user-images.githubusercontent.com/57187745/132944795-64a2ae86-0fb6-45be-ae6b-3832968bdd95.png) -->
 
 ## The solution
 

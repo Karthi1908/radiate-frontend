@@ -87,7 +87,6 @@ const StreamDetails = ({Tezos, wallet}) => {
     }
 
     const handleOnSubmit = (e) => {
-        const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
         e.preventDefault();
         handleOnWithdraw();
         const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]

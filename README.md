@@ -1,3 +1,4 @@
+
 # Radiate Finance | App
 
 Radiate Finance is a real-time money streaming protocol on Tezos, that enables continuous, autonomous and trustless payments. It allows constant flow of assets from sender to receiver every second. It makes transactions faster and ensures trustless environment.
@@ -19,4 +20,4 @@ Radiate Finance is a real-time money streaming protocol on Tezos, that enables c
 
 ## How streaming works
 
-![stream drawio](https://user-images.githubusercontent.com/57187745/132946116-b65e9671-da30-4dbc-96ac-1ecff4eb4954.png)
+![132946116-b65e9671-da30-4dbc-96ac-1ecff4eb4954_w](https://user-images.githubusercontent.com/55653617/132959953-30f31c59-78df-4733-a253-9f1fccb80ba6.png)

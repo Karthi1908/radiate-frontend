@@ -82,7 +82,7 @@ const Pay = ({ senderStreams }) => {
                                         <div className="table-section">
                                             <div className="row">
                                                 <div className="pay-flex">
-                                                    <h3 className="pay-dash-head">Streams Created</h3>
+                                                    <h3 className="pay-dash-head">Sending streams</h3>
                                                     <Link to="/createstream" className="btn top-create-btn">Create Stream</Link>
                                                 </div>
                                             </div>

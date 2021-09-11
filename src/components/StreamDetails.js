@@ -16,22 +16,23 @@ import tokenData from './tokens_testnet.json'
 
 const StreamDetails = ({Tezos, wallet}) => {
     let { streamID } = useParams();
-    const [stream, setStream] = useState(null);
+    const [stream, setStream] = useState({});
     const [flow, setFlow] = useState(0);
     const dispatch = useDispatch();
     const refModel = useRef();
     const selector = useSelector(state => state.walletConfig.user);
-    const [withdrawAmount, setWithdrawAmount] = useState(0);
+    const [withdrawAmount, setWithdrawAmount] = useState();
     const [percentage, setPercentage] = useState(0);
     const [streamedProgress, setStreamedProgress] = useState(0);
-
-
-  
+    const [streamData, setStreamData] = useState({});
+    
     let multiplier = 1000000;
 
     useEffect(() => {
+        console.log(stream)
+        console.log(stream.remainingBalance)
+        console.log(stream.deposit)
 
-        // refModel.current;
         const create = createClient({
             url: 'wss://hasura-radiateapi.herokuapp.com/v1/graphql'
         });
@@ -42,15 +43,15 @@ const StreamDetails = ({Tezos, wallet}) => {
         }).get({ history: { ...everything }, ...everything }).subscribe(e => {
             if(e.length>0){
                 setStream(e[0]);
-                
+                const tokenInfo = tokenData.filter((data) => data.contract_address === e[0].contractAddress && data.token_id === e[0].tokenId)[0]
+                setStreamData(tokenInfo);
+
                 if(e[0].token!==0){
                     const tokenInfo = tokenData.filter((data) => data.contract_address === e[0].contractAddress && data.token_id === e[0].tokenId)[0]
                     multiplier = Math.pow(10,tokenInfo.decimal);
                 }
-                console.log(multiplier);
                 if (new Date().getTime() > Date.parse(e[0].stopTime) || !e[0].isActive) {
                     let amount_now = parseFloat((((e[0].remainingBalance) / multiplier))).toFixed(6);
-                    console.log("Stream ended");
                     setFlow(`${amount_now}`);
                     setStreamedProgress(100);
                 }
@@ -66,7 +67,6 @@ const StreamDetails = ({Tezos, wallet}) => {
                     setPercentage((amount_now/total)*100);
                 }, 500);
             }
-            // console.log(e[0]);
         }))();
     }, []);
 
@@ -74,7 +74,6 @@ const StreamDetails = ({Tezos, wallet}) => {
         if (selector.userAddress === "") {
             try {
                 await dispatch(connectWallet(wallet, Tezos));
-                // dispatch(withdraw({amount:12, streamId:2}));
             } catch (e) {
                 console.log(e);
             }
@@ -84,8 +83,9 @@ const StreamDetails = ({Tezos, wallet}) => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         handleOnWithdraw();
+        const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
         if (withdrawAmount !== 0) {
-            dispatch(withdraw({ amount: withdrawAmount, streamId: stream.streamId, decimal: 6 }, Tezos));
+            dispatch(withdraw({ amount: withdrawAmount, streamId: stream.streamId, decimal: tokenInfo.decimal }, Tezos));
             setWithdrawAmount(0);
         }
     }
@@ -137,9 +137,8 @@ const StreamDetails = ({Tezos, wallet}) => {
                                                 <img
                                                 style={{ width: 60, marginTop: -5 }}
                                                 src={(() => {
-                                                    const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
-                                                    console.log("nfuiweh983h8gh398h")
-                                                    console.log(tokenInfo)
+                                                    let tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
+                                                    if(!tokenInfo){tokenInfo = {}}
                                                     return tokenInfo.uri
                                                 })()}
                                                 alt="icon"
@@ -179,16 +178,26 @@ const StreamDetails = ({Tezos, wallet}) => {
                                     <span className="span-time">Will End on: </span>{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}
                                 </div>
                             </div>
-                        </div>
-                        <div className="col">
-                            <div className="col">
-                                <div className="card btn card-custom" data-bs-toggle="modal" data-bs-target="#withdrawModal" onClick={handleOnWithdraw}>
-                                    <div className="card-body">
-                                        <h5 className="card-title">Withdraw</h5>
-                                        <p className="card-text"></p>
-                                    </div>
+                            <div className="detail-time-flex">
+                                <div className="detail-start-time">
+                                    <span className="span-time">Streamed: </span>{((stream.ratePerSecond * (Date.now() - (new Date(stream.startTime)).getTime())/1000)/(10**streamData.decimal)).toFixed(6)} {streamData.symbol}
+                                </div>
+                                <div className="detail-stop-time">
+                                    <span className="span-time">Withdrawn: </span>{(stream.deposit - stream.remainingBalance)/10**streamData.decimal} {streamData.symbol}
                                 </div>
                             </div>
+                        </div>
+                        <div className="col">
+                            {(selector.userAddress === stream.receiver)?
+                                <div className="col">
+                                    <div className="card btn card-custom" data-bs-toggle="modal" data-bs-target="#withdrawModal" onClick={handleOnWithdraw}>
+                                        <div className="card-body">
+                                            <h5 className="card-title">Withdraw</h5>
+                                            <p className="card-text"></p>
+                                        </div>
+                                    </div>
+                                </div>:<></>
+                            }
                             <div className="col">
                                 <div className="card btn card-custom" data-bs-toggle="modal" data-bs-target="#historyModal">
                                     <div className="card-body">
@@ -225,13 +234,14 @@ const StreamDetails = ({Tezos, wallet}) => {
                                                 </tr>
                                             </thead>
                                             <tbody className="dash-body">
-                                                {stream.history.map((element, idx) => {
+                                                {(stream.history)? stream.history.map((element, idx) => {
+                                                    const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
                                                     return <tr className="dash-row" key={idx}>
                                                         <td className="dash-table-body">Withdraw</td>
-                                                        <td className="dash-table-body"><img src={Tezos} className="tezos-icon" />{element.amount / multiplier}</td>
+                                                        <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" />{element.amount / multiplier}</td>
                                                         <td className="dash-table-body">@{new Date(Date.parse(element.timestamp)).toDateString() + " " + new Date(Date.parse(element.timestamp)).toTimeString().split(" GMT")[0]}</td>
                                                     </tr>
-                                                })}
+                                                }):<></>}
                                             </tbody>
                                         </table>
                                     </div>
@@ -247,9 +257,9 @@ const StreamDetails = ({Tezos, wallet}) => {
                                     <a data-bs-dismiss="modal"><img src={Close} className="close" alt="close" /></a>
                                 </div>
                                 <div className="modal-body">
-
                                     <form className="form">
                                         <div className="form-group">
+                                            <label className="label">{`Amount in ${streamData.symbol}`}</label>
                                             <input type="text" className="form-control" id="amount" value={withdrawAmount} onChange={(e) => { setWithdrawAmount(e.target.value) }} placeholder="Enter amount to withdraw" />
                                         </div>
                                         <button type="submit" className="btn btn-withdraw" onClick={(e) => { handleOnSubmit(e) }}>Submit</button>
@@ -259,18 +269,6 @@ const StreamDetails = ({Tezos, wallet}) => {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: '11'}}>
-                    <div id="liveToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div className="toast-header">
-                        <strong className="me-auto">Invalid</strong>
-                        <small>0 mins ago</small>
-                        <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div className="toast-body">
-                        Account is not the receiver.
-                        </div>
-                    </div>
-                </div> */}
                 </div>
             )}
         </div>

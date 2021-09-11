@@ -28,7 +28,7 @@ const alerts = (i) => {
     }
 }
 
-const CreateStream = () => {
+const CreateStream = ({Tezos}) => {
     const selector = useSelector(state => {return state.walletConfig.user});
     const statusSelector = useSelector(state=>state.createStreamStatus);
     const dispatch = useDispatch();
@@ -73,6 +73,7 @@ const CreateStream = () => {
             modal.setAttribute('style', 'display: none');
 
             // get modal backdrop
+            document.body.setAttribute("style", "")
             const modalBackdrops = document.getElementsByClassName('modal-backdrop');
 
             // remove opened modal backdrop
@@ -93,7 +94,7 @@ const CreateStream = () => {
                     address: selector.userAddress,
                     value: 1000*(10**tokenInfo.decimal),
                     contractAddress: tokenInfo.contract_address
-                }))
+                }, Tezos))
             }
             else if(tokenInfo.token_standard === "FA2"){
                 dispatch(AirdropFA2({
@@ -101,7 +102,7 @@ const CreateStream = () => {
                     amount: 1000*(10**tokenInfo.decimal),
                     tokenId: parseInt(tokenInfo.token_id),
                     contractAddress: tokenInfo.contract_address
-                }))
+                }, Tezos))
             }
         }
     }
@@ -118,7 +119,7 @@ const CreateStream = () => {
                 stopTime: (endTime.getTime())/1000,
                 duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
                 contractAddress: tokenInfo.contract_address
-            }))
+            }, Tezos))
         }else if(tokenInfo.token_standard === "FA2"){
             dispatch(createStreamFA2({
                 amount : amount*(10**tokenInfo.decimal),
@@ -128,7 +129,7 @@ const CreateStream = () => {
                 duration: (endTime.getTime())/1000 - (startTime.getTime())/1000,
                 contractAddress: tokenInfo.contract_address,
                 tokenID: tokenInfo.token_id
-            }))
+            }, Tezos))
         }else {
             dispatch(createStream({
                 amount : amount*(10**tokenInfo.decimal),
@@ -137,7 +138,7 @@ const CreateStream = () => {
                 token: "Tez",
                 stopTime: (endTime.getTime())/1000,
                 duration: (endTime.getTime())/1000 - (startTime.getTime())/1000
-            }))
+            }, Tezos))
         }
         setAmount("");
         setReceiver("");

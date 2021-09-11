@@ -14,7 +14,7 @@ import Back from '../assets/back.png'
 import tokenData from './tokens_testnet.json'
 
 
-const StreamDetails = () => {
+const StreamDetails = ({Tezos, wallet}) => {
     let { streamID } = useParams();
     const [stream, setStream] = useState(null);
     const [flow, setFlow] = useState(0);
@@ -72,7 +72,7 @@ const StreamDetails = () => {
     const handleOnWithdraw = async () => {
         if (selector.userAddress === "") {
             try {
-                await dispatch(connectWallet());
+                await dispatch(connectWallet(wallet, Tezos));
                 // dispatch(withdraw({amount:12, streamId:2}));
             } catch (e) {
                 console.log(e);
@@ -84,7 +84,7 @@ const StreamDetails = () => {
         e.preventDefault();
         handleOnWithdraw();
         if (withdrawAmount !== 0) {
-            dispatch(withdraw({ amount: withdrawAmount, streamId: stream.streamId, decimal: 6 }));
+            dispatch(withdraw({ amount: withdrawAmount, streamId: stream.streamId, decimal: 6 }, Tezos));
             setWithdrawAmount(0);
         }
     }
@@ -182,7 +182,7 @@ const StreamDetails = () => {
                                 </div>
                             </div>
                             <div className="col">
-                                <div className="card btn card-custom" onClick={() => {dispatch(cancelStream({ streamId: stream.streamId })); }}>
+                                <div className="card btn card-custom" onClick={() => {dispatch(cancelStream({ streamId: stream.streamId }, Tezos)); }}>
                                     <div className="card-body">
                                         <h5 className="card-title">Cancel Stream</h5>
                                         <p className="card-text"></p>

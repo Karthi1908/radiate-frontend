@@ -5,14 +5,6 @@ const initialWalletState = {
         userAddress : "",
         userBalance : 0,
     },
-    tezos: {
-        tezosToolkit: null,
-    },
-    beacon: {
-        beaconConnection: false,
-        publicToken: null,
-        wallet: null
-    }
 }
 
 
@@ -20,14 +12,12 @@ const connectWalletReducer = (config = initialWalletState, action) => {
     switch(action.type){
         case "CONNECT_WALLET":
             return {...config,user: action.user, 
-                        tezos: action.tezos, 
-                        beacon: action.beacon};
+                        };
         case "DISCONNECT_WALLET":
             return {...initialWalletState,
-                        tezos: action.tezos
                     };
         case "TEZOS_INSTANCE":
-            return {...config, tezos: action.tezos}
+            return {...config}
         case "CONNECT_WALLET_ERROR":
             return config;
         default:

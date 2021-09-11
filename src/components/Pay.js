@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { Link } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
@@ -24,7 +24,6 @@ const Pay = ({ senderStreams }) => {
     const selector = useSelector((state) => {
         return state.walletConfig.user;
     });
-    const dispatch = useDispatch();
     return (
         <div className="container">
             {
@@ -101,7 +100,6 @@ const Pay = ({ senderStreams }) => {
                                                         </thead>
                                                         <tbody className="dash-body">
                                                             {senderStreams.map((stream, i) => {
-                                                                console.log(stream);
                                                                 const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
 
                                                                 return <tr className="dash-row" key={i}>

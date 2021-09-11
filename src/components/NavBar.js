@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 
 import '../css/navbar.css'
 
-const NavBar = () =>{
+const NavBar = ({ wallet, Tezos, setTezos }) =>{
     const selector = useSelector(state => {return state.walletConfig.user});
     const dispatch = useDispatch();
 
     const onClick = (event) => {
         event.preventDefault();
         if(selector.userAddress===""){
-            dispatch(connectWallet());
+            dispatch(connectWallet(wallet, Tezos));
         }else{
-            dispatch(disconnectWallet());
+            dispatch(disconnectWallet(wallet, setTezos));
         }
     }
 
@@ -23,8 +23,8 @@ const NavBar = () =>{
             <nav className="navbar navbar-dark navbar-expand-lg">
                 <div className="container">
                     <Link className="navbar-brand" to="/">Radiate</Link>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
 
                     <div className="collapse navbar-collapse ml-auto" id="navbarSupportedContent">

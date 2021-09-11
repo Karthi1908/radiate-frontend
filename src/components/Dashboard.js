@@ -23,7 +23,7 @@ const getIcon = (i) => {
     }
 }
 
-export const Dashboard = ({ streams }) => {
+export const Dashboard = ({ streams, wallet, Tezos }) => {
     const selector = useSelector((state) => {
         return state.walletConfig.user;
     });
@@ -45,7 +45,7 @@ export const Dashboard = ({ streams }) => {
                         <button
                             type="button"
                             onClick={(e) => {
-                                dispatch(connectWallet());
+                                dispatch(connectWallet(wallet, Tezos));
                             }}
                             className="btn sign-in-btn"
                         >
@@ -110,8 +110,6 @@ export const Dashboard = ({ streams }) => {
                                                 <tbody className="dash-body">
                                                     {streams.map((stream, i) => {
                                                         const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
-                                                        console.log("token-info")
-                                                        console.log(i, stream, tokenInfo);
                                                         return <tr className="dash-row" key={i}>
                                                             {(stream.isActive && Date.parse(stream.stopTime) > new Date().getTime()) ?
                                                                 <td><Link to={"/stream/" + stream.streamId} className="streaming">Streaming</Link></td> :

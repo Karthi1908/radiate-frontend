@@ -58,7 +58,10 @@ const CreateStream = ({Tezos}) => {
             }
         }
         setLoader(false);
-        setTimeout(()=>{setStatus(0);dispatch({type:"INITIAL_STATUS"});}, 3000);
+        setTimeout(()=>{
+            setStatus(0);
+            dispatch({type:"INITIAL_STATUS"});
+    }, 3000);
     },[statusSelector]);
 
 

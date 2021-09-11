@@ -50,22 +50,28 @@ const StreamDetails = ({Tezos, wallet}) => {
                     const tokenInfo = tokenData.filter((data) => data.contract_address === e[0].contractAddress && data.token_id === e[0].tokenId)[0]
                     multiplier = Math.pow(10,tokenInfo.decimal);
                 }
-                if (new Date().getTime() > Date.parse(e[0].stopTime) || !e[0].isActive) {
+
+                if (!e[0].isActive) {
+                    setFlow(`Canceled`);
+                    setStreamedProgress(100);
+                }else if(new Date().getTime() > Date.parse(e[0].stopTime)){
                     let amount_now = parseFloat((((e[0].remainingBalance) / multiplier))).toFixed(6);
                     setFlow(`${amount_now}`);
                     setStreamedProgress(100);
+                    setPercentage(100);
+                }else{
+                    setInterval(() => {
+                        let timeNow = (new Date()).getTime() / 1000;
+                        let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / multiplier)).toFixed(6);
+                        if (parseFloat(amount_now) > 0 && e[0].isActive && timeNow*1000 < Date.parse(e[0].stopTime)) {
+                            setFlow(`${amount_now}`);
+                            setStreamedProgress(100*(((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) / (((Date.parse(e[0].stopTime)) / 1000 - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond)))
+                        }
+                        
+                        const total = e[0].remainingBalance/multiplier;
+                        setPercentage((amount_now/total)*100);
+                    }, 500);
                 }
-                setInterval(() => {
-                    let timeNow = (new Date()).getTime() / 1000;
-                    let amount_now = parseFloat(((((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) - (e[0].deposit - e[0].remainingBalance)) / multiplier)).toFixed(6);
-                    if (parseFloat(amount_now) > 0 && e[0].isActive && timeNow*1000 < Date.parse(e[0].stopTime)) {
-                        setFlow(`${amount_now}`);
-                        setStreamedProgress(100*(((timeNow - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond) / (((Date.parse(e[0].stopTime)) / 1000 - (Date.parse(e[0].startTime)) / 1000) * e[0].ratePerSecond)))
-                    }
-                    
-                    const total = e[0].remainingBalance/multiplier;
-                    setPercentage((amount_now/total)*100);
-                }, 500);
             }
         }))();
     }, []);
@@ -81,6 +87,7 @@ const StreamDetails = ({Tezos, wallet}) => {
     }
 
     const handleOnSubmit = (e) => {
+        const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
         e.preventDefault();
         handleOnWithdraw();
         const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]

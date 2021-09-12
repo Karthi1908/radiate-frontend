@@ -95,8 +95,8 @@ const StreamDetails = ({Tezos, wallet}) => {
             setWithdrawAmount(0);
         }
     }
-
-    if (stream === null) {
+    
+    if (JSON.stringify(stream) === JSON.stringify({})) {
         return (
             <div className="container container-content main-section">
                 Loading..

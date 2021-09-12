@@ -82,7 +82,7 @@ const Pay = ({ senderStreams }) => {
                                         <div className="table-section">
                                             <div className="row">
                                                 <div className="pay-flex">
-                                                    <h3 className="pay-dash-head">Streams Created</h3>
+                                                    <h3 className="pay-dash-head">Sending streams</h3>
                                                     <Link to="/createstream" className="btn top-create-btn">Create Stream</Link>
                                                 </div>
                                             </div>
@@ -109,8 +109,8 @@ const Pay = ({ senderStreams }) => {
                                                                     }
                                                                     <td className="receiver"><a className="receiver" target="_blank" href={"https://granadanet.tzkt.io/" + stream.receiver + "/operations"}>{stream.receiver}</a></td>
                                                                     {(tokenInfo)? 
-                                                                        <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" alt="icon"/>{stream.deposit / (10**tokenInfo.decimal)}</td>:
-                                                                        <td className="dash-table-body">{getIcon(stream.token)}{stream.deposit / 1000000}</td>
+                                                                        <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" alt="icon"/>{(stream.deposit / (10**tokenInfo.decimal)).toFixed(6)}</td>:
+                                                                        <td className="dash-table-body">{getIcon(stream.token)}{(stream.deposit / 1000000).toFixed(6)}</td>
                                                                     }
                                                                     <td className="dash-table-body">{new Date(Date.parse(stream.startTime)).toDateString() + " " + new Date(Date.parse(stream.startTime)).toTimeString().split(" GMT")[0]}</td>
                                                                     <td className="dash-table-body">{new Date(Date.parse(stream.stopTime)).toDateString() + " " + new Date(Date.parse(stream.stopTime)).toTimeString().split(" GMT")[0]}</td>

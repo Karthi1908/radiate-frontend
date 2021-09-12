@@ -272,7 +272,7 @@ const StreamDetails = ({Tezos, wallet}) => {
                                                     const tokenInfo = tokenData.filter((data) => data.contract_address === stream.contractAddress && data.token_id === stream.tokenId)[0]
                                                     return <tr className="dash-row" key={idx}>
                                                         <td className="dash-table-body">Withdraw</td>
-                                                        <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" />{element.amount / multiplier}</td>
+                                                        <td className="dash-table-body"><img src={tokenInfo.uri} className="tezos-icon" />{element.amount / (10**streamData.decimal)}</td>
                                                         <td className="dash-table-body">@{new Date(Date.parse(element.timestamp)).toDateString() + " " + new Date(Date.parse(element.timestamp)).toTimeString().split(" GMT")[0]}</td>
                                                     </tr>
                                                 }):<></>}
